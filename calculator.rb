@@ -1,5 +1,6 @@
 class PrimeFactor
   def <<(x)
+    raise NotImplementedError.new
   end
 end
 
