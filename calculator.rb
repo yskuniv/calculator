@@ -46,13 +46,23 @@ class Term
   def simplify
     classify
 
-    # simplify each classified block here
+    simplified = @classified_factors_list.map { |factors|
+      factors.reduce(&:<<)
+    }
+
+    @factors = simplified
   end
 
 
   private
 
   def classify
+    @classified_factors_list = [
+      @factors.select { |x| x.is_a? Rational },
+      @factors.select { |x| x.is_a? Radical },
+      @factors.select { |x| x.is_a? Exponential },
+      @factors.select { |x| x.is_a? Logarithm },
+    ]
   end
 end
 
