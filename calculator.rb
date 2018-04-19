@@ -96,12 +96,18 @@ module Calculator
                      .map { |factors| factors.reduce(&:<<) }
 
       @factors = simplified
+
+      self
     end
 
     alias :! :simplify
 
     def <<(given)
-      !Term[self, given]
+      term_ = !Term[self, given]
+
+      @factors = term_.instance_variable_get(:@factors)
+
+      self
     end
 
 
@@ -113,7 +119,7 @@ module Calculator
         factors.select { |x| x.is_a? Radical },
         factors.select { |x| x.is_a? Exponential },
         factors.select { |x| x.is_a? Logarithm },
-      ]
+      ].reject!(&:empty?)
     end
   end
 
@@ -133,6 +139,8 @@ module Calculator
       simplified = @terms.reduce(&:<<)
 
       @terms = simplified
+
+      self
     end
 
     alias :! :simplify
