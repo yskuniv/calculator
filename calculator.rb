@@ -44,6 +44,15 @@ class Term
   end
 
   def simplify
+    classify
+
+    # simplify each classified block here
+  end
+
+
+  private
+
+  def classify
   end
 end
 
