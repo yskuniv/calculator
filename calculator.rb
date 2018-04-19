@@ -5,7 +5,7 @@ module Calculator
     end
 
 
-    def <<(x)
+    def <<(given)
       raise NotImplementedError.new
     end
   end
