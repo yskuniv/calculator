@@ -1,4 +1,6 @@
 class PrimeFactor
+  def <<(x)
+  end
 end
 
 class Rational < PrimeFactor
