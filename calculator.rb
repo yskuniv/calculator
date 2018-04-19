@@ -72,7 +72,7 @@ module Calculator
       @factors = simplified
     end
 
-    alias :! simplify
+    alias :! :simplify
 
 
     private
@@ -104,6 +104,6 @@ module Calculator
 
     end
 
-    alias :! simplify
+    alias :! :simplify
   end
 end
