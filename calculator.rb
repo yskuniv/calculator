@@ -103,11 +103,8 @@ module Calculator
     alias :! :simplify
 
     def <<(given)
-      term_ = !Term[self, given]
-
-      @factors = term_.instance_variable_get(:@factors)
-
-      self
+      # TODO: implement
+      raise NotImplementedError.new
     end
 
 
