@@ -58,7 +58,7 @@ module Calculator
     end
 
 
-    def initialize(factors)
+    def initialize(*factors)
       @factors = factors
     end
 
@@ -93,7 +93,7 @@ module Calculator
     end
 
 
-    def initialize(terms)
+    def initialize(*terms)
       @terms = terms
     end
 
