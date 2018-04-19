@@ -1,5 +1,10 @@
 module Calculator
   class PrimeFactor
+    class << self
+      alias :[] :new
+    end
+
+
     def <<(x)
       raise NotImplementedError.new
     end
@@ -41,8 +46,18 @@ module Calculator
     attr_reader :base, :real_number
   end
 
+  Rat = Rational
+  Rad = Radical
+  Exp = Exponential
+  Log = Logarithm
+
 
   class Term
+    class << self
+      alias :[] :new
+    end
+
+
     def initialize(factors)
       @factors = factors
     end
@@ -56,6 +71,8 @@ module Calculator
 
       @factors = simplified
     end
+
+    alias :! simplify
 
 
     private
@@ -71,6 +88,11 @@ module Calculator
   end
 
   class Expression
+    class << self
+      alias :[] :new
+    end
+
+
     def initialize(terms)
       @terms = terms
     end
@@ -81,5 +103,7 @@ module Calculator
       # do simplification of expression its own here
 
     end
+
+    alias :! simplify
   end
 end
