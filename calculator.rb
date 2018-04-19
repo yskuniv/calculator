@@ -1,85 +1,85 @@
 module Calculator
-class PrimeFactor
-  def <<(x)
-    raise NotImplementedError.new
-  end
-end
-
-class Rational < PrimeFactor
-  def initialize(n, d)
-    @numerator = n
-    @denominator = d
+  class PrimeFactor
+    def <<(x)
+      raise NotImplementedError.new
+    end
   end
 
-  attr_reader :numerator, :denominator
-end
+  class Rational < PrimeFactor
+    def initialize(n, d)
+      @numerator = n
+      @denominator = d
+    end
 
-class Radical < PrimeFactor
-  def initialize(i, r)
-    @index = i
-    @radicand = r
+    attr_reader :numerator, :denominator
   end
 
-  attr_reader :index, :radicand
-end
+  class Radical < PrimeFactor
+    def initialize(i, r)
+      @index = i
+      @radicand = r
+    end
 
-class Exponential < PrimeFactor
-  def initialize(b, e)
-    @base = b
-    @exponent = e
+    attr_reader :index, :radicand
   end
 
-  attr_reader :base, :exponent
-end
+  class Exponential < PrimeFactor
+    def initialize(b, e)
+      @base = b
+      @exponent = e
+    end
 
-class Logarithm < PrimeFactor
-  def initialize(b, n)
-    @base = b
-    @real_number = n
+    attr_reader :base, :exponent
   end
 
-  attr_reader :base, :real_number
-end
+  class Logarithm < PrimeFactor
+    def initialize(b, n)
+      @base = b
+      @real_number = n
+    end
 
-
-class Term
-  def initialize(factors)
-    @factors = factors
-  end
-
-  def simplify
-    classify
-
-    simplified = @classified_factors_list.map { |factors|
-      factors.reduce(&:<<)
-    }
-
-    @factors = simplified
+    attr_reader :base, :real_number
   end
 
 
-  private
+  class Term
+    def initialize(factors)
+      @factors = factors
+    end
 
-  def classify
-    @classified_factors_list = [
-      @factors.select { |x| x.is_a? Rational },
-      @factors.select { |x| x.is_a? Radical },
-      @factors.select { |x| x.is_a? Exponential },
-      @factors.select { |x| x.is_a? Logarithm },
-    ]
+    def simplify
+      classify
+
+      simplified = @classified_factors_list.map { |factors|
+        factors.reduce(&:<<)
+      }
+
+      @factors = simplified
+    end
+
+
+    private
+
+    def classify
+      @classified_factors_list = [
+        @factors.select { |x| x.is_a? Rational },
+        @factors.select { |x| x.is_a? Radical },
+        @factors.select { |x| x.is_a? Exponential },
+        @factors.select { |x| x.is_a? Logarithm },
+      ]
+    end
   end
-end
 
-class Expression
-  def initialize(terms)
-    @terms = terms
+  class Expression
+    def initialize(terms)
+      @terms = terms
+    end
+
+    def simplify
+      @terms.each(&:simplify)
+
+      # do simplification of expression its own here
+
+    end
   end
-
-  def simplify
-    @terms.each(&:simplify)
-
-    # do simplification of expression its own here
-
-  end
-end
 end
