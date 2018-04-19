@@ -37,6 +37,7 @@ class Logarithm < PrimeFactor
   attr_reader :base, :real_number
 end
 
+
 class Term
   def initialize(factors)
     @factors = factors
