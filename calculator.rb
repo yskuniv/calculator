@@ -1,3 +1,4 @@
+module Calculator
 class PrimeFactor
   def <<(x)
     raise NotImplementedError.new
@@ -80,4 +81,5 @@ class Expression
     # do simplification of expression its own here
 
   end
+end
 end
