@@ -63,11 +63,8 @@ module Calculator
     end
 
     def simplify
-      classify
-
-      simplified = @classified_factors_list.map { |factors|
-        factors.reduce(&:<<)
-      }
+      simplified = get_classified_factors_list(@factors)
+                     .map { |factors| factors.reduce(&:<<) }
 
       @factors = simplified
     end
@@ -81,12 +78,12 @@ module Calculator
 
     private
 
-    def classify
-      @classified_factors_list = [
-        @factors.select { |x| x.is_a? Rational },
-        @factors.select { |x| x.is_a? Radical },
-        @factors.select { |x| x.is_a? Exponential },
-        @factors.select { |x| x.is_a? Logarithm },
+    def get_classified_factors_list(factors)
+      [
+        factors.select { |x| x.is_a? Rational },
+        factors.select { |x| x.is_a? Radical },
+        factors.select { |x| x.is_a? Exponential },
+        factors.select { |x| x.is_a? Logarithm },
       ]
     end
   end
