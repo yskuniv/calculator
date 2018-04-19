@@ -1,4 +1,7 @@
-class Rational
+class PrimeFactor
+end
+
+class Rational < PrimeFactor
   def initialize(n, d)
     @numerator = n
     @denominator = d
@@ -7,7 +10,7 @@ class Rational
   attr_reader :numerator, :denominator
 end
 
-class Radical
+class Radical < PrimeFactor
   def initialize(i, r)
     @index = i
     @radicand = r
@@ -16,7 +19,7 @@ class Radical
   attr_reader :index, :radicand
 end
 
-class Exponential
+class Exponential < PrimeFactor
   def initialize(b, e)
     @base = b
     @exponent = e
@@ -25,7 +28,7 @@ class Exponential
   attr_reader :base, :exponent
 end
 
-class Logarithm
+class Logarithm < PrimeFactor
   def initialize(b, n)
     @base = b
     @real_number = n
@@ -35,11 +38,8 @@ class Logarithm
 end
 
 class Term
-  def initialize(c, rad, exp, log)
-    @coefficient = c
-    @radical = rad
-    @exponential = exp
-    @logarithm = log
+  def initialize(factors)
+    @factors = factors
   end
 end
 
