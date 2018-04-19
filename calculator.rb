@@ -104,8 +104,9 @@ module Calculator
     def simplify
       @terms.each(&:simplify)
 
-      # do simplification of expression its own here
+      simplified = @terms.reduce(&:<<)
 
+      @terms = simplified
     end
 
     alias :! :simplify
