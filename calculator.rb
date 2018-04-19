@@ -41,10 +41,16 @@ class Term
   def initialize(factors)
     @factors = factors
   end
+
+  def simplify
+  end
 end
 
 class Expression
   def initialize(terms)
     @terms = terms
+  end
+
+  def simplify
   end
 end
