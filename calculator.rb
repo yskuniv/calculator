@@ -53,5 +53,9 @@ class Expression
   end
 
   def simplify
+    @terms.each(&:simplify)
+
+    # do simplification of expression its own here
+
   end
 end
