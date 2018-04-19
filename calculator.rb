@@ -16,7 +16,36 @@ module Calculator
       @denominator = d
     end
 
+    def simplify
+      n_, d_ = reduction(@numerator, @denominator)
+
+      @numerator, @denominator = n_, d_
+
+      self
+    end
+
+    alias :! :simplify
+
+    def <<(given)
+      nn = @numerator * given.numerator
+      dd = @denominator * given.denominator
+
+      n_, d_ = reduction(nn, dd)
+
+      @numerator, @denominator = n_, d_
+
+      self
+    end
+
     attr_reader :numerator, :denominator
+
+
+    private
+
+    def reduction(n, d)
+      r = Rational(n, d)
+      [r.numerator, r.denominator]
+    end
   end
 
   class Radical < PrimeFactor
