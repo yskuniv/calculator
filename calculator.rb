@@ -74,6 +74,10 @@ module Calculator
 
     alias :! :simplify
 
+    def <<(given)
+      !Term[self, given]
+    end
+
 
     private
 
