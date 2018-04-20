@@ -105,9 +105,9 @@ module Calculator
     end
 
     def simplify
-      f_ = simplify_factors(@factors)
+      fcts_ = simplify_factors(@factors)
 
-      @factors = f_
+      @factors = fcts_
 
       self
     end
@@ -130,9 +130,9 @@ module Calculator
         factors.select { |x| x.is_a? Logarithm },
       ].reject!(&:empty?)
 
-      f_ = classified_factors_list.map { |fcts| fcts.reduce(&:<<) }
+      fcts_ = classified_factors_list.map { |f| f.reduce(&:<<) }
 
-      f_
+      fcts_
     end
   end
 
