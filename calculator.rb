@@ -113,11 +113,16 @@ module Calculator
     end
 
     def <<(given)
-      # TODO: implement
-      raise NotImplementedError.new
+      fcts_ = simplify_factors(@factors + given.factors)
+
+      @factors = fcts_
+
+      self
     end
 
     alias :! :simplify
+
+    attr_reader :factors
 
 
     private
