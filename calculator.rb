@@ -1,5 +1,5 @@
 module Calculator
-  class PrimeFactor
+  class FactorBase
     class << self
       alias :[] :new
     end
@@ -10,7 +10,10 @@ module Calculator
     end
   end
 
-  class Factor
+  class PrimeFactor < FactorBase
+  end
+
+  class Factor < FactorBase
     def initialize(c, pf)
       @coefficient = c
       @prime_factor = pf
