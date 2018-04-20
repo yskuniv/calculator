@@ -87,6 +87,7 @@ module Calculator
     attr_reader :base, :real_number
   end
 
+  # define alias of class
   Rat = Rational
   Rad = Radical
   Exp = Exponential
