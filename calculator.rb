@@ -36,8 +36,6 @@ module Calculator
       self
     end
 
-    alias :! :simplify
-
     def <<(given)
       nn = @numerator * given.numerator
       dd = @denominator * given.denominator
@@ -48,6 +46,8 @@ module Calculator
 
       self
     end
+
+    alias :! :simplify
 
     attr_reader :numerator, :denominator
 
@@ -112,12 +112,12 @@ module Calculator
       self
     end
 
-    alias :! :simplify
-
     def <<(given)
       # TODO: implement
       raise NotImplementedError.new
     end
+
+    alias :! :simplify
 
 
     private
