@@ -105,9 +105,9 @@ module Calculator
     end
 
     def simplify
-      simplified = simplify_factors(@factors)
+      f_ = simplify_factors(@factors)
 
-      @factors = simplified
+      @factors = f_
 
       self
     end
@@ -123,13 +123,16 @@ module Calculator
     private
 
     def simplify_factors(factors)
-      [
+      classified_factors_list = [
         factors.select { |x| x.is_a? Rational },
         factors.select { |x| x.is_a? Radical },
         factors.select { |x| x.is_a? Exponential },
         factors.select { |x| x.is_a? Logarithm },
       ].reject!(&:empty?)
-        .map { |fcts| fcts.reduce(&:<<) }
+
+      f_ = classified_factors_list.map { |fcts| fcts.reduce(&:<<) }
+
+      f_
     end
   end
 
