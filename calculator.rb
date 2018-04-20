@@ -10,6 +10,15 @@ module Calculator
     end
   end
 
+  class Factor
+    def initialize(c, pf)
+      @coefficient = c
+      @prime_factor = pf
+    end
+
+    attr_reader :coefficient, :prime_factor
+  end
+
   class Rational < PrimeFactor
     def initialize(n, d)
       @numerator = n
