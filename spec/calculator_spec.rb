@@ -27,6 +27,28 @@ describe Calculator::Rational do
 
   end
 
+  describe '#<<' do
+
+    it 'returns self' do
+      ra = Calculator::Rational[1, 1]
+      rb = Calculator::Rational[1, 1]
+
+      ret = ra << rb
+
+      expect(ret.object_id).to eq ra.object_id
+    end
+
+    it 'multiplies self properly with given' do
+      ra = Calculator::Rational[2, 3]
+      rb = Calculator::Rational[3, 4]
+
+      ret = ra << rb
+
+      expect([ret.numerator, ret.denominator]).to eq [1, 2]
+    end
+
+  end
+
   describe '#==' do
 
     before do
