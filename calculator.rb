@@ -8,6 +8,10 @@ module Calculator
     def <<(given)
       raise NotImplementedError.new
     end
+
+    def ==(given)
+      raise NotImplementedError.new
+    end
   end
 
   class PrimeFactor < FactorBase
