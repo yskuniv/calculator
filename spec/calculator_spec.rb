@@ -7,6 +7,26 @@ end
 
 describe Calculator::Rational do
 
+  describe '#simplify' do
+
+    it 'returns self' do
+      r = Calculator::Rational[1, 1]
+
+      ret = r.simplify
+
+      expect(ret.object_id).to eq r.object_id
+    end
+
+    it 'simplifies self properly' do
+      r = Calculator::Rational[2, 4]
+
+      r.simplify
+
+      expect([r.numerator, r.denominator]).to eq [1, 2]
+    end
+
+  end
+
   describe '#==' do
 
     before do
