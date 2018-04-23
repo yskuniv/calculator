@@ -51,6 +51,10 @@ module Calculator
       self
     end
 
+    def ==(given)
+      @numerator == given.numerator && @denominator == given.denominator
+    end
+
     alias :! :simplify
 
     attr_reader :numerator, :denominator
