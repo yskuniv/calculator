@@ -3,6 +3,7 @@ require_relative '../calculator.rb'
 
 
 describe Calculator::Factor do
+  pending
 end
 
 describe Calculator::Rational do
@@ -74,12 +75,15 @@ describe Calculator::Rational do
 end
 
 describe Calculator::Radical do
+  pending
 end
 
 describe Calculator::Exponential do
+  pending
 end
 
 describe Calculator::Logarithm do
+  pending
 end
 
 
