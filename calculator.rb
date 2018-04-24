@@ -136,16 +136,11 @@ module Calculator
     private
 
     def simplify_factors(factors)
-      classified_factors_list = [
-        factors.select { |x| x.is_a? Rational },
-        factors.select { |x| x.is_a? Radical },
-        factors.select { |x| x.is_a? Exponential },
-        factors.select { |x| x.is_a? Logarithm },
-      ].reject!(&:empty?)
+      factors_classified = factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
 
-      fcts_ = classified_factors_list.map { |f| f.reduce(&:<<) }
+      ret = factors_classified.map { |_, fs| fs.reduce(&:<<) }
 
-      fcts_
+      ret
     end
   end
 
