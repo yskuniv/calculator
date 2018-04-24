@@ -13,17 +13,16 @@ describe Calculator::Rational do
     it 'returns self' do
       r = Calculator::Rational[1, 1]
 
-      ret = r.simplify
-
-      expect(ret.object_id).to eq r.object_id
+      expect((r.simplify).object_id).to eq r.object_id
     end
 
     it 'simplifies self properly' do
       r = Calculator::Rational[2, 4]
 
-      r.simplify
-
-      expect([r.numerator, r.denominator]).to eq [1, 2]
+      expect(proc {
+               res = r.simplify
+               [res.numerator, res.denominator]
+             }[]).to eq [1, 2]
     end
 
   end
@@ -34,18 +33,17 @@ describe Calculator::Rational do
       ra = Calculator::Rational[1, 1]
       rb = Calculator::Rational[1, 1]
 
-      ret = ra << rb
-
-      expect(ret.object_id).to eq ra.object_id
+      expect((ra << rb).object_id).to eq ra.object_id
     end
 
     it 'multiplies self properly with given' do
       ra = Calculator::Rational[2, 3]
       rb = Calculator::Rational[3, 4]
 
-      ret = ra << rb
-
-      expect([ret.numerator, ret.denominator]).to eq [1, 2]
+      expect(proc {
+               res = ra << rb
+               [res.numerator, res.denominator]
+             }[]).to eq [1, 2]
     end
 
   end
