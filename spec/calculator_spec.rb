@@ -36,7 +36,7 @@ describe Calculator::Rational do
       expect((ra << rb).object_id).to eq ra.object_id
     end
 
-    it 'multiplies self properly with given' do
+    it 'multiplies self with given properly' do
       ra = Calculator::Rational[2, 3]
       rb = Calculator::Rational[3, 4]
 
