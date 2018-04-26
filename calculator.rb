@@ -46,10 +46,7 @@ module Calculator
     end
 
     def multiply(given)
-      nn = @numerator * given.numerator
-      dd = @denominator * given.denominator
-
-      n_, d_ = simplify_nd(nn, dd)
+      n_, d_ = multiply_nds([@numerator, @denominator], [given.numerator, given.denominator])
 
       self.class.new(n_, d_)
     end
@@ -81,6 +78,16 @@ module Calculator
     def simplify_nd(n, d)
       r = Rational(n, d)
       [r.numerator, r.denominator]
+    end
+
+    def multiply_nds(nd_a, nd_b)
+      na, da = nd_a
+      nb, db = nd_b
+
+      n_ = na * nb
+      d_ = da * db
+
+      simplify_nd(n_, d_)
     end
   end
 
