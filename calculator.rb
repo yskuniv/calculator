@@ -45,6 +45,15 @@ module Calculator
       self.class.new(n_, d_)
     end
 
+    def multiply(given)
+      nn = @numerator * given.numerator
+      dd = @denominator * given.denominator
+
+      n_, d_ = reduction(nn, dd)
+
+      self.class.new(n_, d_)
+    end
+
     def simplify!
       r = simplify
 
