@@ -33,7 +33,10 @@ module Calculator
     end
 
     def ==(given)
-      @numerator == given.numerator && @denominator == given.denominator
+      na, da = reduction(@numerator, @denominator)
+      nb, db = reduction(given.numerator, given.denominator)
+
+      [na, da] == [nb, db]
     end
 
     def simplify
