@@ -1,4 +1,10 @@
 module Calculator
+  class Calculatable
+    class << self
+      alias :[] :new
+    end
+  end
+
   class FactorBase
     class << self
       alias :[] :new
