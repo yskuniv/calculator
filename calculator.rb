@@ -5,12 +5,7 @@ module Calculator
     end
   end
 
-  class FactorBase
-    class << self
-      alias :[] :new
-    end
-
-
+  class FactorBase < Calculatable
     def ==(given)
       raise NotImplementedError.new
     end
@@ -156,12 +151,7 @@ module Calculator
   Log = Logarithm
 
 
-  class Term
-    class << self
-      alias :[] :new
-    end
-
-
+  class Term < Calculatable
     def initialize(*factors)
       @factors = factors
     end
@@ -198,12 +188,7 @@ module Calculator
     end
   end
 
-  class Expression
-    class << self
-      alias :[] :new
-    end
-
-
+  class Expression < Calculatable
     def initialize(*terms)
       @terms = terms
     end
