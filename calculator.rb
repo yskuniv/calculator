@@ -162,6 +162,10 @@ module Calculator
       @factors = factors
     end
 
+    def ==(given)
+      @factors == given.factors
+    end
+
     def simplify
       fcts_ = simplify_factors(@factors)
 
