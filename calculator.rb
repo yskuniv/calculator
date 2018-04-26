@@ -42,9 +42,7 @@ module Calculator
     def simplify
       n_, d_ = reduction(@numerator, @denominator)
 
-      @numerator, @denominator = n_, d_
-
-      self
+      self.class.new(n_, d_)
     end
 
     def <<(given)
