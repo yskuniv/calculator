@@ -64,7 +64,7 @@ module Calculator
       self
     end
 
-    alias :! :simplify
+    alias :! :simplify!
 
     attr_reader :numerator, :denominator
 
