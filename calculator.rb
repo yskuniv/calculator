@@ -1,11 +1,11 @@
 module Calculator
-  class Calculatable
+  class Element
     class << self
       alias :[] :new
     end
   end
 
-  class FactorBase < Calculatable
+  class Calculatable < Element
     def ==(given)
       raise NotImplementedError.new
     end
@@ -15,10 +15,10 @@ module Calculator
     end
   end
 
-  class PrimeFactor < FactorBase
+  class PrimeFactor < Calculatable
   end
 
-  class Factor < FactorBase
+  class Factor < Calculatable
     def initialize(c, pf)
       @coefficient = c
       @prime_factor = pf
@@ -215,7 +215,7 @@ module Calculator
     end
   end
 
-  class Expression < Calculatable
+  class Expression < Element
     def initialize(*terms)
       @terms = terms
     end
