@@ -186,12 +186,9 @@ module Calculator
       return_with_destruction t
     end
 
-    def <<(given)
-      raise NotImplementedError.new
-    end
-
     alias :+ :add
     alias :! :simplify!
+    alias :<< :add!
 
     attr_reader :factors
 
