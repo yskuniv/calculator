@@ -8,6 +8,28 @@ end
 
 describe Calculator::Rational do
 
+  describe '#==' do
+
+    before do
+      @ra = Calculator::Rational[1, 2]
+      @rb = Calculator::Rational[1, 2]
+      @rc = Calculator::Rational[2, 3]
+    end
+
+    context 'when an equal object is given' do
+      it 'returns true' do
+        expect(@ra == @rb).to be_truthy
+      end
+    end
+
+    context 'when a non-equal object is given' do
+      it 'returns false' do
+        expect(@ra == @rc).to be_falsey
+      end
+    end
+
+  end
+
   describe '#simplify' do
 
     it 'simplifies self properly' do
@@ -31,28 +53,6 @@ describe Calculator::Rational do
                res = ra.multiply(rb)
                [res.numerator, res.denominator]
              }[]).to eq [1, 2]
-    end
-
-  end
-
-  describe '#==' do
-
-    before do
-      @ra = Calculator::Rational[1, 2]
-      @rb = Calculator::Rational[1, 2]
-      @rc = Calculator::Rational[2, 3]
-    end
-
-    context 'when an equal object is given' do
-      it 'returns true' do
-        expect(@ra == @rb).to be_truthy
-      end
-    end
-
-    context 'when a non-equal object is given' do
-      it 'returns false' do
-        expect(@ra == @rc).to be_falsey
-      end
     end
 
   end
