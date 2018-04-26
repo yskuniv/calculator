@@ -10,12 +10,6 @@ describe Calculator::Rational do
 
   describe '#simplify' do
 
-    it 'returns self' do
-      r = Calculator::Rational[1, 1]
-
-      expect((r.simplify).object_id).to eq r.object_id
-    end
-
     it 'simplifies self properly' do
       r = Calculator::Rational[2, 4]
 
@@ -27,21 +21,14 @@ describe Calculator::Rational do
 
   end
 
-  describe '#<<' do
-
-    it 'returns self' do
-      ra = Calculator::Rational[1, 1]
-      rb = Calculator::Rational[1, 1]
-
-      expect((ra << rb).object_id).to eq ra.object_id
-    end
+  describe '#multiply' do
 
     it 'multiplies self with given properly' do
       ra = Calculator::Rational[2, 3]
       rb = Calculator::Rational[3, 4]
 
       expect(proc {
-               res = ra << rb
+               res = ra.multiply(rb)
                [res.numerator, res.denominator]
              }[]).to eq [1, 2]
     end
