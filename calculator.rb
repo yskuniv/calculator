@@ -33,14 +33,14 @@ module Calculator
     end
 
     def ==(given)
-      na, da = reduction(@numerator, @denominator)
-      nb, db = reduction(given.numerator, given.denominator)
+      na, da = simplify_nd(@numerator, @denominator)
+      nb, db = simplify_nd(given.numerator, given.denominator)
 
       [na, da] == [nb, db]
     end
 
     def simplify
-      n_, d_ = reduction(@numerator, @denominator)
+      n_, d_ = simplify_nd(@numerator, @denominator)
 
       self.class.new(n_, d_)
     end
@@ -49,7 +49,7 @@ module Calculator
       nn = @numerator * given.numerator
       dd = @denominator * given.denominator
 
-      n_, d_ = reduction(nn, dd)
+      n_, d_ = simplify_nd(nn, dd)
 
       self.class.new(n_, d_)
     end
@@ -78,7 +78,7 @@ module Calculator
 
     private
 
-    def reduction(n, d)
+    def simplify_nd(n, d)
       r = Rational(n, d)
       [r.numerator, r.denominator]
     end
