@@ -3,13 +3,13 @@ module Calculator
     class << self
       alias :[] :new
     end
-  end
 
-  class Calculatable < Element
     def ==(given)
       raise NotImplementedError.new
     end
+  end
 
+  class Calculatable < Element
     def <<(given)
       raise NotImplementedError.new
     end
