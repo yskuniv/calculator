@@ -230,7 +230,32 @@ module Calculator
     end
 
     def simplify
-      raise NotImplementedError.new
+      trms_ = simplify_terms(@terms)
+
+      self.class.new(*trms_)
+    end
+
+    def simplify!
+      e = simplify
+
+      return_with_destruction e
+    end
+
+    alias :! simplify!
+
+    attr_reader :terms
+
+
+    private
+
+    def simplify_terms(terms)
+      t_ = terms.reduce(&:+)
+      [t_]
+    end
+
+    def return_with_destruction(e)
+      @terms = e.terms
+      self
     end
   end
 end
