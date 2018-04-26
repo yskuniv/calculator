@@ -62,6 +62,20 @@ describe Calculator::Rational do
 
   end
 
+  describe '#add' do
+
+    it 'adds given to self properly' do
+      ra = Calculator::Rational[2, 3]
+      rb = Calculator::Rational[5, 6]
+
+      expect(proc {
+               res = ra.add(rb)
+               [res.numerator, res.denominator]
+             }[]).to eq [3, 2]
+    end
+
+  end
+
 end
 
 describe Calculator::Radical do
