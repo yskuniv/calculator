@@ -165,16 +165,20 @@ module Calculator
     def simplify
       fcts_ = simplify_factors(@factors)
 
-      @factors = fcts_
+      self.class.new(*fcts_)
+    end
 
-      self
+    def simplify!
+      t = simplify
+
+      return_with_destruction t
     end
 
     def <<(given)
       raise NotImplementedError.new
     end
 
-    alias :! :simplify
+    alias :! :simplify!
 
     attr_reader :factors
 
@@ -189,6 +193,11 @@ module Calculator
 
     def classify_factors(factors)
       factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
+    end
+
+    def return_with_destruction(t)
+      @factors = t.factors
+      self
     end
   end
 
