@@ -54,17 +54,13 @@ module Calculator
     def simplify!
       r = simplify
 
-      @numerator, @denominator = r.numerator, r.denominator
-
-      self
+      return_with_destruction r
     end
 
     def multiply!(given)
       r = multiply(given)
 
-      @numerator, @denominator = r.numerator, r.denominator
-
-      self
+      return_with_destruction r
     end
 
     alias :! :simplify!
@@ -88,6 +84,11 @@ module Calculator
       d_ = da * db
 
       simplify_nd(n_, d_)
+    end
+
+    def return_with_destruction(r)
+      @numerator, @denominator = r.numerator, r.denominator
+      self
     end
   end
 
