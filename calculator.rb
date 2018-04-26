@@ -64,6 +64,7 @@ module Calculator
     end
 
     alias :! :simplify!
+    alias :* :multiply
     alias :<< :multiply!
 
     attr_reader :numerator, :denominator
