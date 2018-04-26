@@ -70,18 +70,8 @@ module Calculator
       self
     end
 
-    def <<(given)
-      nn = @numerator * given.numerator
-      dd = @denominator * given.denominator
-
-      n_, d_ = reduction(nn, dd)
-
-      @numerator, @denominator = n_, d_
-
-      self
-    end
-
     alias :! :simplify!
+    alias :<< :multiply!
 
     attr_reader :numerator, :denominator
 
