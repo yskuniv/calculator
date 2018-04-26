@@ -193,7 +193,7 @@ module Calculator
     def simplify_factors(factors)
       cfactors = classify_factors(factors)
 
-      cfactors.map { |_, fs| fs.reduce(&:<<) }
+      cfactors.map { |_, fs| fs.reduce(&:*) }
     end
 
     def add_2factors(factors_a, factors_b)
