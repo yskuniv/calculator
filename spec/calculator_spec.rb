@@ -10,7 +10,7 @@ describe Calculator::Rational do
 
   describe '#simplify' do
 
-    it 'simplifies self properly' do
+    it 'simplifies properly' do
       expect(Calculator::Rational[2, 4].simplify).to eq Calculator::Rational[1, 2]
     end
 
@@ -18,7 +18,7 @@ describe Calculator::Rational do
 
   describe '#multiply' do
 
-    it 'multiplies self with given properly' do
+    it 'multiplies with given properly' do
       expect(Calculator::Rational[2, 3].multiply(Calculator::Rational[3, 4])).to eq Calculator::Rational[1, 2]
     end
 
@@ -26,7 +26,7 @@ describe Calculator::Rational do
 
   describe '#add' do
 
-    it 'adds given to self properly' do
+    it 'adds given properly' do
       expect(Calculator::Rational[2, 3].add(Calculator::Rational[5, 6])).to eq Calculator::Rational[3, 2]
     end
 
@@ -51,7 +51,7 @@ describe Calculator::Term do
 
   describe '#simplify' do
 
-    it 'simplifies self properly (This is not a simple unit test)' do
+    it 'simplifies properly (This is not a simple unit test)' do
       expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].simplify).
         to eq Calculator::Term[Calculator::Rat[1, 2]]
     end
@@ -60,7 +60,7 @@ describe Calculator::Term do
 
   describe '#add' do
 
-    it 'adds given to self properly (This is not a simple unit test)' do
+    it 'adds given properly (This is not a simple unit test)' do
       expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].add(Calculator::Term[Calculator::Rat[1, 3]])).
         to eq Calculator::Term[Calculator::Rat[5, 6]]
     end
@@ -73,7 +73,7 @@ describe Calculator::Expression do
 
   describe '#simplify' do
 
-    it 'simplifies self properly (This is not a simple unit test)' do
+    it 'simplifies properly (This is not a simple unit test)' do
       expect(Calculator::Expression[Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]],
                                     Calculator::Term[Calculator::Rat[1, 3]]].simplify).
         to eq Calculator::Expression[Calculator::Term[Calculator::Rat[5, 6]]]
