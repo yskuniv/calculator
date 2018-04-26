@@ -180,11 +180,13 @@ module Calculator
     private
 
     def simplify_factors(factors)
-      factors_classified = factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
+      cfactors = classify_factors(factors)
 
-      ret = factors_classified.map { |_, fs| fs.reduce(&:<<) }
+      cfactors.map { |_, fs| fs.reduce(&:<<) }
+    end
 
-      ret
+    def classify_factors(factors)
+      factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
     end
   end
 
