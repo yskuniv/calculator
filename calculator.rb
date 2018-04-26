@@ -34,6 +34,8 @@ module Calculator
     end
 
     def ==(given)
+      return false if given.nil?
+
       na, da = simplify_nd(@numerator, @denominator)
       nb, db = simplify_nd(given.numerator, given.denominator)
 
@@ -47,12 +49,16 @@ module Calculator
     end
 
     def multiply(given)
+      return self.class.new(@numerator, @denominator) if given.nil?
+
       n_, d_ = multiply_nds([@numerator, @denominator], [given.numerator, given.denominator])
 
       self.class.new(n_, d_)
     end
 
     def add(given)
+      return self.class.new(@numerator, @denominator) if given.nil?
+
       n_, d_ = add_nds([@numerator, @denominator], [given.numerator, given.denominator])
 
       self.class.new(n_, d_)
