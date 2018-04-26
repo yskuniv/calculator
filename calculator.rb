@@ -45,6 +45,14 @@ module Calculator
       self.class.new(n_, d_)
     end
 
+    def simplify!
+      r = simplify
+
+      @numerator, @denominator = r.numerator, r.denominator
+
+      self
+    end
+
     def <<(given)
       nn = @numerator * given.numerator
       dd = @denominator * given.denominator
