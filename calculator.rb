@@ -75,10 +75,10 @@ module Calculator
       return_with_destruction r
     end
 
-    alias :! :simplify!
     alias :* :multiply
-    alias :<< :multiply!
     alias :+ :add
+    alias :! :simplify!
+    alias :<< :multiply!
 
     attr_reader :numerator, :denominator
 
