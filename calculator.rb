@@ -51,6 +51,12 @@ module Calculator
       self.class.new(n_, d_)
     end
 
+    def add(given)
+      n_, d_ = add_nds([@numerator, @denominator], [given.numerator, given.denominator])
+
+      self.class.new(n_, d_)
+    end
+
     def simplify!
       r = simplify
 
@@ -63,9 +69,16 @@ module Calculator
       return_with_destruction r
     end
 
+    def add!(given)
+      r = add(given)
+
+      return_with_destruction r
+    end
+
     alias :! :simplify!
     alias :* :multiply
     alias :<< :multiply!
+    alias :+ :add
 
     attr_reader :numerator, :denominator
 
@@ -82,6 +95,16 @@ module Calculator
       nb, db = nd_b
 
       n_ = na * nb
+      d_ = da * db
+
+      simplify_nd(n_, d_)
+    end
+
+    def add_nds(nd_a, nd_b)
+      na, da = nd_a
+      nb, db = nd_b
+
+      n_ = na * db + nb * da
       d_ = da * db
 
       simplify_nd(n_, d_)
