@@ -165,11 +165,7 @@ module Calculator
     end
 
     def <<(given)
-      fcts_ = simplify_factors(@factors + given.factors)
-
-      @factors = fcts_
-
-      self
+      raise NotImplementedError.new
     end
 
     alias :! :simplify
