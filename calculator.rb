@@ -168,8 +168,20 @@ module Calculator
       self.class.new(*fcts_)
     end
 
+    def add(given)
+      fcts_ = add_2factors(@factors, given.factors)
+
+      self.class.new(*fcts_)
+    end
+
     def simplify!
       t = simplify
+
+      return_with_destruction t
+    end
+
+    def add!(given)
+      t = add(given)
 
       return_with_destruction t
     end
@@ -178,6 +190,7 @@ module Calculator
       raise NotImplementedError.new
     end
 
+    alias :+ :add
     alias :! :simplify!
 
     attr_reader :factors
@@ -189,6 +202,15 @@ module Calculator
       cfactors = classify_factors(factors)
 
       cfactors.map { |_, fs| fs.reduce(&:<<) }
+    end
+
+    def add_2factors(factors_a, factors_b)
+      cfactors_a = classify_factors(factors_a)
+      cfactors_b = classify_factors(factors_b)
+
+      cfcts_ = cfactors_a.merge(cfactors_b) { |_, fs_a, fs_b| simplify_factors(fs_a).first + simplify_factors(fs_b).first }
+
+      cfcts_.values
     end
 
     def classify_factors(factors)
