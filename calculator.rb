@@ -150,12 +150,6 @@ module Calculator
     attr_reader :base, :real_number
   end
 
-  # define alias of class
-  Rat = Rational
-  Rad = Radical
-  Exp = Exponential
-  Log = Logarithm
-
 
   class Term < Calculatable
     def initialize(*factors)
@@ -258,4 +252,11 @@ module Calculator
       self
     end
   end
+
+
+  # define alias of classes
+  Rat = Rational
+  Rad = Radical
+  Exp = Exponential
+  Log = Logarithm
 end
