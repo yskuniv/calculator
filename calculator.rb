@@ -5,11 +5,11 @@ module Calculator
     end
 
 
-    def <<(given)
+    def ==(given)
       raise NotImplementedError.new
     end
 
-    def ==(given)
+    def <<(given)
       raise NotImplementedError.new
     end
   end
