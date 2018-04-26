@@ -220,6 +220,10 @@ module Calculator
       @terms = terms
     end
 
+    def ==(given)
+      @terms == given.terms
+    end
+
     def simplify
       trms_ = simplify_terms(@terms)
 
