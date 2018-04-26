@@ -32,6 +32,10 @@ module Calculator
       @denominator = d
     end
 
+    def ==(given)
+      @numerator == given.numerator && @denominator == given.denominator
+    end
+
     def simplify
       n_, d_ = reduction(@numerator, @denominator)
 
@@ -49,10 +53,6 @@ module Calculator
       @numerator, @denominator = n_, d_
 
       self
-    end
-
-    def ==(given)
-      @numerator == given.numerator && @denominator == given.denominator
     end
 
     alias :! :simplify
