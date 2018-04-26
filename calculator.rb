@@ -36,10 +36,7 @@ module Calculator
     def ==(given)
       return false if given.nil?
 
-      na, da = simplify_nd(@numerator, @denominator)
-      nb, db = simplify_nd(given.numerator, given.denominator)
-
-      [na, da] == [nb, db]
+      [@numerator, @denominator] == [given.numerator, given.denominator]
     end
 
     def simplify

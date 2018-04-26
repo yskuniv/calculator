@@ -13,23 +13,18 @@ describe Calculator::Rational do
     before do
       @ra = Calculator::Rational[1, 2]
       @rb = Calculator::Rational[1, 2]
-      @rc = Calculator::Rational[2, 4]
-      @rd = Calculator::Rational[2, 3]
+      @rc = Calculator::Rational[2, 3]
     end
 
     context 'when an equal object is given' do
       it 'returns true' do
         expect(@ra == @rb).to be_truthy
       end
-
-      it 'also returns true' do
-        expect(@ra == @rc).to be_truthy
-      end
     end
 
     context 'when a non-equal object is given' do
       it 'returns false' do
-        expect(@ra == @rd).to be_falsey
+        expect(@ra == @rc).to be_falsey
       end
     end
 
