@@ -192,15 +192,7 @@ module Calculator
     end
 
     def simplify
-      @terms.each(&:simplify)
-
-      simplified = @terms.reduce(&:<<)
-
-      @terms = simplified
-
-      self
+      raise NotImplementedError.new
     end
-
-    alias :! :simplify
   end
 end
