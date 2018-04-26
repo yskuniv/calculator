@@ -15,9 +15,6 @@ module Calculator
     end
   end
 
-  class PrimeFactor < Calculatable
-  end
-
   class Factor < Calculatable
     def initialize(c, pf)
       @coefficient = c
@@ -25,6 +22,9 @@ module Calculator
     end
 
     attr_reader :coefficient, :prime_factor
+  end
+
+  class PrimeFactor < Calculatable
   end
 
   class Rational < PrimeFactor
