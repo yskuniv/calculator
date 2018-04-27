@@ -264,35 +264,6 @@ module Calculator
   end
 
   class Expression < Element
-    def initialize(*terms)
-      @terms = terms
-    end
-
-    def ==(given)
-      return false if given.nil?
-
-      @terms == given.terms
-    end
-
-    def simplify
-      trms_ = simplify_terms(@terms)
-
-      self.class.new(*trms_)
-    end
-
-    attr_reader :terms
-
-
-    private
-
-    def simplify_terms(terms)
-      t_ = terms.reduce(&:+)
-      [t_]
-    end
-
-    def destruct_self_with(e)
-      @terms = e.terms
-    end
   end
 
 
