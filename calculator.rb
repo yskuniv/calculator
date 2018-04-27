@@ -7,6 +7,30 @@ module Calculator
     def ==(given)
       raise NotImplementedError.new
     end
+
+    def simplify
+      raise NotImplementedError.new
+    end
+
+    def simplify!
+      e_ = simplify
+
+      return_with_destruction e_
+    end
+
+    alias :! :simplify!
+
+
+    private
+
+    def return_with_destruction(e)
+      destruct_self_with(e)
+      self
+    end
+
+    def destruct_self_with(e)
+      raise NotImplementedError.new
+    end
   end
 
   class Calculatable < Element
@@ -15,7 +39,41 @@ module Calculator
     end
   end
 
-  class CFactor < Calculatable
+  module Addable
+    def add(given)
+      raise NotImplementedError.new
+    end
+
+    def add!(given)
+      r = add(given)
+
+      return_with_destruction r
+    end
+
+    def +(given)
+      add(given)
+    end
+  end
+
+  class Factor < Calculatable
+    def multiply(given)
+      raise NotImplementedError.new
+    end
+
+    def multiply!(given)
+      f_ = multiply(given)
+
+      return_with_destruction f_
+    end
+
+    def *(given)
+      multiply(given)
+    end
+
+    alias :<< :multiply!
+  end
+
+  class CFactor < Factor
     def initialize(c, pf)
       @coefficient = c
       @prime_factor = pf
@@ -24,10 +82,12 @@ module Calculator
     attr_reader :coefficient, :prime_factor
   end
 
-  class PrimeFactor < Calculatable
+  class PrimeFactor < Factor
   end
 
   class Rational < PrimeFactor
+    include Addable
+
     def initialize(n, d)
       @numerator = n
       @denominator = d
@@ -61,29 +121,6 @@ module Calculator
       self.class.new(n_, d_)
     end
 
-    def simplify!
-      r = simplify
-
-      return_with_destruction r
-    end
-
-    def multiply!(given)
-      r = multiply(given)
-
-      return_with_destruction r
-    end
-
-    def add!(given)
-      r = add(given)
-
-      return_with_destruction r
-    end
-
-    alias :* :multiply
-    alias :+ :add
-    alias :! :simplify!
-    alias :<< :multiply!
-
     attr_reader :numerator, :denominator
 
 
@@ -114,9 +151,8 @@ module Calculator
       simplify_nd(n_, d_)
     end
 
-    def return_with_destruction(r)
+    def destruct_self_with(r)
       @numerator, @denominator = r.numerator, r.denominator
-      self
     end
   end
 
@@ -149,6 +185,8 @@ module Calculator
 
 
   class Term < Calculatable
+    include Addable
+
     def initialize(*factors)
       @factors = factors
     end
@@ -169,20 +207,6 @@ module Calculator
       self.class.new(*fcts_)
     end
 
-    def simplify!
-      t = simplify
-
-      return_with_destruction t
-    end
-
-    def add!(given)
-      t = add(given)
-
-      return_with_destruction t
-    end
-
-    alias :+ :add
-    alias :! :simplify!
     alias :<< :add!
 
     attr_reader :factors
@@ -209,9 +233,8 @@ module Calculator
       factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
     end
 
-    def return_with_destruction(t)
+    def destruct_self_with(t)
       @factors = t.factors
-      self
     end
   end
 
@@ -230,14 +253,6 @@ module Calculator
       self.class.new(*trms_)
     end
 
-    def simplify!
-      e = simplify
-
-      return_with_destruction e
-    end
-
-    alias :! simplify!
-
     attr_reader :terms
 
 
@@ -248,9 +263,8 @@ module Calculator
       [t_]
     end
 
-    def return_with_destruction(e)
+    def destruct_self_with(e)
       @terms = e.terms
-      self
     end
   end
 
