@@ -192,6 +192,8 @@ module Calculator
     end
 
     def ==(given)
+      return false if given.nil?
+
       @factors == given.factors
     end
 
@@ -202,6 +204,8 @@ module Calculator
     end
 
     def add(given)
+      return self.class.new(@factors) if given.nil?
+
       fcts_ = add_2factors(@factors, given.factors)
 
       self.class.new(*fcts_)
@@ -244,6 +248,8 @@ module Calculator
     end
 
     def ==(given)
+      return false if given.nil?
+
       @terms == given.terms
     end
 
