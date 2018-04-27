@@ -73,7 +73,7 @@ module Calculator
     alias :<< :multiply!
   end
 
-  class CFactor < Calculatable
+  class CFactor < Factor
     def initialize(c, pf)
       @coefficient = c
       @prime_factor = pf
@@ -82,7 +82,7 @@ module Calculator
     attr_reader :coefficient, :prime_factor
   end
 
-  class PrimeFactor < Calculatable
+  class PrimeFactor < Factor
   end
 
   class Rational < PrimeFactor
