@@ -120,6 +120,45 @@ module Calculator
 
   class Rational < PrimeFactor
     include Addable
+
+    class << self
+      def generate_params(n, d)
+        { n: n, d: d }
+      end
+
+      def compare_2params(a, b)
+        [a[:n], a[:d]] == [b[:n], b[:d]]
+      end
+
+      def simplify_params(a)
+        r = Rational(a[:n], a[:d])
+
+        generate_params(r.numerator, r.denominator)
+      end
+
+      def multiply_2params(a, b)
+        n_ = a[:n] * b[:n]
+        d_ = a[:d] * b[:d]
+
+        simplify_params(generate_params(n_, d_))
+      end
+
+      def add_2params(a, b)
+        n_ = a[:n] * b[:d] + b[:n] * a[:d]
+        d_ = a[:d] * b[:d]
+
+        simplify_params(generate_params(n_, d_))
+      end
+    end
+
+
+    def numerator
+      @params[:n]
+    end
+
+    def denominator
+      @params[:d]
+    end
   end
 
   class Radical < PrimeFactor
