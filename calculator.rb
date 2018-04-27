@@ -215,60 +215,6 @@ module Calculator
 
   class Term < Calculatable
     include Addable
-
-    def initialize(*factors)
-      @factors = factors
-    end
-
-    def ==(given)
-      return false if given.nil?
-
-      @factors == given.factors
-    end
-
-    def simplify
-      fcts_ = simplify_factors(@factors)
-
-      self.class.new(*fcts_)
-    end
-
-    def add(given)
-      return self.class.new(@factors) if given.nil?
-
-      fcts_ = add_2factors(@factors, given.factors)
-
-      self.class.new(*fcts_)
-    end
-
-    alias :<< :add!
-
-    attr_reader :factors
-
-
-    private
-
-    def simplify_factors(factors)
-      cfactors = classify_factors(factors)
-
-      cfactors.map { |_, fs| fs.reduce(&:*) }
-    end
-
-    def add_2factors(factors_a, factors_b)
-      cfactors_a = classify_factors(factors_a)
-      cfactors_b = classify_factors(factors_b)
-
-      cfcts_ = cfactors_a.merge(cfactors_b) { |_, fs_a, fs_b| simplify_factors(fs_a).first + simplify_factors(fs_b).first }
-
-      cfcts_.values
-    end
-
-    def classify_factors(factors)
-      factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
-    end
-
-    def destruct_self_with(t)
-      @factors = t.factors
-    end
   end
 
   class Expression < Element
