@@ -86,6 +86,8 @@ module Calculator
   end
 
   class Rational < PrimeFactor
+    include Addable
+
     def initialize(n, d)
       @numerator = n
       @denominator = d
@@ -119,29 +121,6 @@ module Calculator
       self.class.new(n_, d_)
     end
 
-    def simplify!
-      r = simplify
-
-      return_with_destruction r
-    end
-
-    def multiply!(given)
-      r = multiply(given)
-
-      return_with_destruction r
-    end
-
-    def add!(given)
-      r = add(given)
-
-      return_with_destruction r
-    end
-
-    alias :* :multiply
-    alias :+ :add
-    alias :! :simplify!
-    alias :<< :multiply!
-
     attr_reader :numerator, :denominator
 
 
@@ -172,9 +151,8 @@ module Calculator
       simplify_nd(n_, d_)
     end
 
-    def return_with_destruction(r)
+    def destruct_self_with(r)
       @numerator, @denominator = r.numerator, r.denominator
-      self
     end
   end
 
