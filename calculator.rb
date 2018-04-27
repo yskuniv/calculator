@@ -192,6 +192,8 @@ module Calculator
     end
 
     def ==(given)
+      return false if given.nil?
+
       @factors == given.factors
     end
 
