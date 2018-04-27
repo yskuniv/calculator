@@ -1,36 +1,5 @@
 module Calculator
   class Element
-    class << self
-      alias :[] :new
-    end
-
-    def ==(given)
-      raise NotImplementedError.new
-    end
-
-    def simplify
-      raise NotImplementedError.new
-    end
-
-    def simplify!
-      e_ = simplify
-
-      return_with_destruction e_
-    end
-
-    alias :! :simplify!
-
-
-    private
-
-    def return_with_destruction(e)
-      destruct_self_with(e)
-      self
-    end
-
-    def destruct_self_with(e)
-      raise NotImplementedError.new
-    end
   end
 
   class Calculatable < Element
