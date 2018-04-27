@@ -18,6 +18,10 @@ module Calculator
       def simplify_params(a)
         raise NotImplementedError.new
       end
+
+      def to_p(*args)
+        generate_params(*args)
+      end
     end
 
 
@@ -133,21 +137,21 @@ module Calculator
       def simplify_params(a)
         r = Rational(a[:n], a[:d])
 
-        generate_params(r.numerator, r.denominator)
+        to_p(r.numerator, r.denominator)
       end
 
       def multiply_2params(a, b)
         n_ = a[:n] * b[:n]
         d_ = a[:d] * b[:d]
 
-        simplify_params(generate_params(n_, d_))
+        simplify_params(to_p(n_, d_))
       end
 
       def add_2params(a, b)
         n_ = a[:n] * b[:d] + b[:n] * a[:d]
         d_ = a[:d] * b[:d]
 
-        simplify_params(generate_params(n_, d_))
+        simplify_params(to_p(n_, d_))
       end
     end
 
@@ -230,7 +234,7 @@ module Calculator
 
         res = a_clsd.map { |_, fs| fs.reduce(&:*) }
 
-        generate_params(*res)
+        to_p(*res)
       end
 
       def add_2params(a, b)
@@ -238,15 +242,15 @@ module Calculator
         b_clsd = classify_factors(b[:factors])
 
         res_clsd = a_clsd.merge(b_clsd) { |_, fs_a, fs_b|
-          fs_a_smpd = simplify_params(generate_params(*fs_a))[:factors]
-          fs_b_smpd = simplify_params(generate_params(*fs_b))[:factors]
+          fs_a_smpd = simplify_params(to_p(*fs_a))[:factors]
+          fs_b_smpd = simplify_params(to_p(*fs_b))[:factors]
 
           fs_a_smpd.first + fs_b_smpd.first
         }
 
         res = res_clsd.values
 
-        generate_params(*res)
+        to_p(*res)
       end
 
 
@@ -278,7 +282,7 @@ module Calculator
 
         res = [t_]
 
-        generate_params(*res)
+        to_p(*res)
       end
     end
 
