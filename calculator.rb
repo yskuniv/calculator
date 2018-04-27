@@ -39,6 +39,22 @@ module Calculator
     end
   end
 
+  module Addable
+    def add(given)
+      raise NotImplementedError.new
+    end
+
+    def add!(given)
+      r = add(given)
+
+      return_with_destruction r
+    end
+
+    def +(given)
+      add(given)
+    end
+  end
+
   class Factor < Calculatable
     def multiply(given)
       raise NotImplementedError.new
