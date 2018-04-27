@@ -204,6 +204,8 @@ module Calculator
     end
 
     def add(given)
+      return self.class.new(@factors) if given.nil?
+
       fcts_ = add_2factors(@factors, given.factors)
 
       self.class.new(*fcts_)
