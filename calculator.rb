@@ -185,6 +185,8 @@ module Calculator
 
 
   class Term < Calculatable
+    include Addable
+
     def initialize(*factors)
       @factors = factors
     end
@@ -205,20 +207,6 @@ module Calculator
       self.class.new(*fcts_)
     end
 
-    def simplify!
-      t = simplify
-
-      return_with_destruction t
-    end
-
-    def add!(given)
-      t = add(given)
-
-      return_with_destruction t
-    end
-
-    alias :+ :add
-    alias :! :simplify!
     alias :<< :add!
 
     attr_reader :factors
@@ -245,9 +233,8 @@ module Calculator
       factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
     end
 
-    def return_with_destruction(t)
+    def destruct_self_with(t)
       @factors = t.factors
-      self
     end
   end
 
