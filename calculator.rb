@@ -58,6 +58,27 @@ module Calculator
   end
 
   module Addable
+    class << self
+      def add_2params(a, b)
+        raise NotImplementedError.new
+      end
+    end
+
+    def add(given)
+      params_ = self.class.add_2params(@params, given.params)
+
+      self.class.new(params_)
+    end
+
+    def add!(given)
+      params_ = self.class.add_2params(@params, given.params)
+
+      @params = params_
+
+      self
+    end
+
+    alias :+ add
   end
 
   class Factor < Calculatable
