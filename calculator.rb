@@ -253,14 +253,6 @@ module Calculator
       self.class.new(*trms_)
     end
 
-    def simplify!
-      e = simplify
-
-      return_with_destruction e
-    end
-
-    alias :! simplify!
-
     attr_reader :terms
 
 
@@ -271,9 +263,8 @@ module Calculator
       [t_]
     end
 
-    def return_with_destruction(e)
+    def destruct_self_with(e)
       @terms = e.terms
-      self
     end
   end
 
