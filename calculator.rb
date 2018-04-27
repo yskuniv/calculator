@@ -264,6 +264,28 @@ module Calculator
   end
 
   class Expression < Element
+    class << self
+      def generate_params(*terms)
+        { terms: terms }
+      end
+
+      def compare_2params(a, b)
+        a[:terms] == b[:terms]
+      end
+
+      def simplify_params(a)
+        t_ = a[:terms].reduce(&:+)
+
+        res = [t_]
+
+        generate_params(*res)
+      end
+    end
+
+
+    def terms
+      @params[:terms]
+    end
   end
 
 
