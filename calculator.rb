@@ -82,6 +82,28 @@ module Calculator
   end
 
   class Factor < Calculatable
+    class << self
+      def multiply_2params(a, b)
+        raise NotImplementedError.new
+      end
+    end
+
+    def multiply(given)
+      params_ = self.class.multiply_2params(@params, given.params)
+
+      self.class.new(params_)
+    end
+
+    def multiply!(given)
+      params_ = self.class.multiply_2params(@params, given.params)
+
+      @params = params_
+
+      self
+    end
+
+    alias :* :multiply
+    alias :<< :multiply!
   end
 
   class CFactor < Factor
