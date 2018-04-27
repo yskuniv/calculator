@@ -248,6 +248,8 @@ module Calculator
     end
 
     def ==(given)
+      return false if given.nil?
+
       @terms == given.terms
     end
 
