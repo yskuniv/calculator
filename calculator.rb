@@ -215,6 +215,52 @@ module Calculator
 
   class Term < Calculatable
     include Addable
+
+    class << self
+      def generate_params(*factors)
+        { factors: factors }
+      end
+
+      def compare_2params(a, b)
+        a[:factors] == b[:factors]
+      end
+
+      def simplify_params(a)
+        a_clsd = classify_factors(a[:factors])
+
+        res = a_clsd.map { |_, fs| fs.reduce(&:*) }
+
+        generate_params(*res)
+      end
+
+      def add_2params(a, b)
+        a_clsd = classify_factors(a[:factors])
+        b_clsd = classify_factors(b[:factors])
+
+        res_clsd = a_clsd.merge(b_clsd) { |_, fs_a, fs_b|
+          fs_a_smpd = simplify_params(generate_params(*fs_a))[:factors]
+          fs_b_smpd = simplify_params(generate_params(*fs_b))[:factors]
+
+          fs_a_smpd.first + fs_b_smpd.first
+        }
+
+        res = res_clsd.values
+
+        generate_params(*res)
+      end
+
+
+      private
+
+      def classify_factors(factors)
+        factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
+      end
+    end
+
+
+    def factors
+      @params[:factors]
+    end
   end
 
   class Expression < Element
