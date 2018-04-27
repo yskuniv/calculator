@@ -39,6 +39,24 @@ module Calculator
     end
   end
 
+  class Factor < Calculatable
+    def multiply(given)
+      raise NotImplementedError.new
+    end
+
+    def multiply!(given)
+      f_ = multiply(given)
+
+      return_with_destruction f_
+    end
+
+    def *(given)
+      multiply(given)
+    end
+
+    alias :<< :multiply!
+  end
+
   class CFactor < Calculatable
     def initialize(c, pf)
       @coefficient = c
