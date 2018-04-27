@@ -2,7 +2,7 @@ require 'spec_helper'
 require_relative '../calculator.rb'
 
 
-describe Calculator::Factor do
+describe Calculator::CFactor do
   pending
 end
 

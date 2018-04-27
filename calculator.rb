@@ -15,7 +15,7 @@ module Calculator
     end
   end
 
-  class Factor < Calculatable
+  class CFactor < Calculatable
     def initialize(c, pf)
       @coefficient = c
       @prime_factor = pf
