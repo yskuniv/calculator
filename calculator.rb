@@ -50,21 +50,19 @@ module Calculator
 
   module Addable
     class << self
-      def add_2params(a, b)
+      def add(a, b)
         raise NotImplementedError.new
       end
     end
 
     def add(given)
-      params_ = self.class.add_2params(@params, given.params)
-
-      self.class.new(params_)
+      self.class.add(self, given)
     end
 
     def add!(given)
-      params_ = self.class.add_2params(@params, given.params)
+      add_ = self.class.add(self, given)
 
-      @params = params_
+      destruct(add_)
 
       self
     end
