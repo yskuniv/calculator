@@ -178,20 +178,14 @@ module Calculator
   end
 
   class Logarithm < PrimeFactor
-    class << self
-      def generate_params(b, rn)
-        { b: b, rn: rn }
-      end
+    def initialize(b, rn)
+      @b = b
+      @rn = rn
     end
 
-
-    def base
-      @params[:b]
-    end
-
-    def real_number
-      @params[:rn]
-    end
+    attr_reader :b, :rn
+    alias :base :b
+    alias :real_number :rn
   end
 
 
