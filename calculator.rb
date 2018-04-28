@@ -102,6 +102,14 @@ module Calculator
     attr_reader :c, :pf
     alias :coefficient :c
     alias :prime_factor :pf
+
+
+    private
+
+    def destruct(nw_)
+      @c = nw_.c
+      @pf = nw_.pf
+    end
   end
 
   class PrimeFactor < Factor
