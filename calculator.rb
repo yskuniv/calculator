@@ -167,20 +167,14 @@ module Calculator
   end
 
   class Exponential < PrimeFactor
-    class << self
-      def generate_params(b, e)
-        { b: b, e: e }
-      end
+    def initialize(b, e)
+      @b = b
+      @e = e
     end
 
-
-    def base
-      @params[:b]
-    end
-
-    def exponent
-      @params[:e]
-    end
+    attr_reader :b, :e
+    alias :base :b
+    alias :exponent :e
   end
 
   class Logarithm < PrimeFactor
