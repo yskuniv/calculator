@@ -37,7 +37,7 @@ module Calculator
 
     private
 
-    def destruct(elm_)
+    def destruct(nw_)
       raise NotImplementedError.new
     end
   end
@@ -149,9 +149,9 @@ module Calculator
 
     private
 
-    def destruct(r)
-      @n = r.n
-      @d = r.d
+    def destruct(nw_)
+      @n = nw_.n
+      @d = nw_.d
     end
   end
 
