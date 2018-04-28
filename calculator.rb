@@ -24,7 +24,7 @@ module Calculator
     end
 
     def simplify!
-      elm_ = self.class.simplifyc(self)
+      elm_ = self.class.simplify(self)
 
       destruct(elm_)
 
