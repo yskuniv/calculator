@@ -37,7 +37,7 @@ module Calculator
 
     private
 
-    def destruct(elm_)
+    def destruct(nw_)
       raise NotImplementedError.new
     end
   end
@@ -149,9 +149,9 @@ module Calculator
 
     private
 
-    def destruct(r)
-      @n = r.n
-      @d = r.d
+    def destruct(nw_)
+      @n = nw_.n
+      @d = nw_.d
     end
   end
 
@@ -164,6 +164,14 @@ module Calculator
     attr_reader :i, :r
     alias :index :i
     alias :radicand :r
+
+
+    private
+
+    def destruct(nw_)
+      @i = nw_.i
+      @r = nw_.r
+    end
   end
 
   class Exponential < PrimeFactor
@@ -175,6 +183,14 @@ module Calculator
     attr_reader :b, :e
     alias :base :b
     alias :exponent :e
+
+
+    private
+
+    def destruct(nw_)
+      @b = nw_.b
+      @e = nw_.e
+    end
   end
 
   class Logarithm < PrimeFactor
@@ -186,6 +202,14 @@ module Calculator
     attr_reader :b, :rn
     alias :base :b
     alias :real_number :rn
+
+
+    private
+
+    def destruct(nw_)
+      @b = nw_.b
+      @rn = nw_.rn
+    end
   end
 
 
