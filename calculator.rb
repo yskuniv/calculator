@@ -111,42 +111,47 @@ module Calculator
     include Addable
 
     class << self
-      def generate_params(n, d)
-        { n: n, d: d }
+      def compare(a, b)
+        [a.n, a.d] == [b.n, b.d]
       end
 
-      def compare_2params(a, b)
-        [a[:n], a[:d]] == [b[:n], b[:d]]
+      def simplify(a)
+        r = Rational(a.n, a.d)
+
+        new(r.numerator, r.denominator)
       end
 
-      def simplify_params(a)
-        r = Rational(a[:n], a[:d])
+      def multiply(a, b)
+        n_ = a.n * b.n
+        d_ = a.d * b.d
 
-        to_p(r.numerator, r.denominator)
+        simplify(new(n_, d_))
       end
 
-      def multiply_2params(a, b)
-        n_ = a[:n] * b[:n]
-        d_ = a[:d] * b[:d]
+      def add(a, b)
+        n_ = a.n * b.d + b.n * a.d
+        d_ = a.d * b.d
 
-        simplify_params(to_p(n_, d_))
-      end
-
-      def add_2params(a, b)
-        n_ = a[:n] * b[:d] + b[:n] * a[:d]
-        d_ = a[:d] * b[:d]
-
-        simplify_params(to_p(n_, d_))
+        simplify(new(n_, d_))
       end
     end
 
 
-    def numerator
-      @params[:n]
+    def initialize(n, d)
+      @n = n
+      @d = d
     end
 
-    def denominator
-      @params[:d]
+    attr_reader :n, :d
+    alias :numerator :n
+    alias :denominator :d
+
+
+    private
+
+    def destruct(r)
+      @n = r.n
+      @d = r.d
     end
   end
 
