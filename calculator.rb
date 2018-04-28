@@ -156,20 +156,14 @@ module Calculator
   end
 
   class Radical < PrimeFactor
-    class << self
-      def generate_params(i, r)
-        { i: i, r: r }
-      end
+    def initialize(i, r)
+      @i = i
+      @r = r
     end
 
-
-    def index
-      @params[:i]
-    end
-
-    def radicand
-      @params[:r]
-    end
+    attr_reader :i, :r
+    alias :index :i
+    alias :radicand :r
   end
 
   class Exponential < PrimeFactor
