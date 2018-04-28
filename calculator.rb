@@ -1,50 +1,32 @@
 module Calculator
   class Element
     class << self
-      def [](*args)
-        params_ = generate_params(*args)
-
-        new(params_)
-      end
-
-      def generate_params(*args)
+      def compare(a, b)
         raise NotImplementedError.new
       end
 
-      def compare_2params(a, b)
+      def simplify(a)
         raise NotImplementedError.new
       end
 
-      def simplify_params(a)
-        raise NotImplementedError.new
-      end
-
-      def to_p(*args)
-        generate_params(*args)
-      end
+      alias :[] :new
     end
 
-
-    def initialize(params_)
-      @params = params_
-    end
 
     def compare(given)
       return false if given.nil?
 
-      self.class.compare_2params(@params, given.params)
+      self.class.compare(self, given)
     end
 
     def simplify
-      params_ = self.class.simplify_params(@params)
-
-      self.class.new(params_)
+      self.class.simplify(self)
     end
 
     def simplify!
-      params_ = self.class.simplify_params(@params)
+      elm_ = self.class.simplifyc(self)
 
-      @params = params_
+      destruct(elm_)
 
       self
     end
@@ -52,7 +34,12 @@ module Calculator
     alias :== :compare
     alias :! :simplify!
 
-    attr_reader :params
+
+    private
+
+    def destruct(elm_)
+      raise NotImplementedError.new
+    end
   end
 
   class Calculatable < Element
