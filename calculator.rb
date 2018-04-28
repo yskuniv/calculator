@@ -1,34 +1,43 @@
 module Calculator
   class Element
     class << self
+      def compare(a, b)
+        raise NotImplementedError.new
+      end
+
+      def simplify(a)
+        raise NotImplementedError.new
+      end
+
       alias :[] :new
     end
 
-    def ==(given)
-      raise NotImplementedError.new
+
+    def compare(given)
+      return false if given.nil?
+
+      self.class.compare(self, given)
     end
 
     def simplify
-      raise NotImplementedError.new
+      self.class.simplify(self)
     end
 
     def simplify!
-      e_ = simplify
+      elm_ = self.class.simplify(self)
 
-      return_with_destruction e_
+      destruct(elm_)
+
+      self
     end
 
+    alias :== :compare
     alias :! :simplify!
 
 
     private
 
-    def return_with_destruction(e)
-      destruct_self_with(e)
-      self
-    end
-
-    def destruct_self_with(e)
+    def destruct(elm_)
       raise NotImplementedError.new
     end
   end
@@ -40,46 +49,59 @@ module Calculator
   end
 
   module Addable
+    class << self
+      def add(a, b)
+        raise NotImplementedError.new
+      end
+    end
+
     def add(given)
-      raise NotImplementedError.new
+      self.class.add(self, given)
     end
 
     def add!(given)
-      r = add(given)
+      add_ = self.class.add(self, given)
 
-      return_with_destruction r
+      destruct(add_)
+
+      self
     end
 
-    def +(given)
-      add(given)
-    end
+    alias :+ add
   end
 
   class Factor < Calculatable
+    class << self
+      def multiply(a, b)
+        raise NotImplementedError.new
+      end
+    end
+
     def multiply(given)
-      raise NotImplementedError.new
+      self.class.multiply(self, given)
     end
 
     def multiply!(given)
-      f_ = multiply(given)
+      fct_ = self.class.multiply(self, given)
 
-      return_with_destruction f_
+      destruct(fct_)
+
+      self
     end
 
-    def *(given)
-      multiply(given)
-    end
-
+    alias :* :multiply
     alias :<< :multiply!
   end
 
   class CFactor < Factor
     def initialize(c, pf)
-      @coefficient = c
-      @prime_factor = pf
+      @c = c
+      @pf = pf
     end
 
-    attr_reader :coefficient, :prime_factor
+    attr_reader :c, :pf
+    alias :coefficient :c
+    alias :prime_factor :pf
   end
 
   class PrimeFactor < Factor
@@ -88,175 +110,158 @@ module Calculator
   class Rational < PrimeFactor
     include Addable
 
+    class << self
+      def compare(a, b)
+        [a.n, a.d] == [b.n, b.d]
+      end
+
+      def simplify(a)
+        r = Rational(a.n, a.d)
+
+        new(r.numerator, r.denominator)
+      end
+
+      def multiply(a, b)
+        n_ = a.n * b.n
+        d_ = a.d * b.d
+
+        simplify(new(n_, d_))
+      end
+
+      def add(a, b)
+        n_ = a.n * b.d + b.n * a.d
+        d_ = a.d * b.d
+
+        simplify(new(n_, d_))
+      end
+    end
+
+
     def initialize(n, d)
-      @numerator = n
-      @denominator = d
+      @n = n
+      @d = d
     end
 
-    def ==(given)
-      return false if given.nil?
-
-      [@numerator, @denominator] == [given.numerator, given.denominator]
-    end
-
-    def simplify
-      n_, d_ = simplify_nd(@numerator, @denominator)
-
-      self.class.new(n_, d_)
-    end
-
-    def multiply(given)
-      return self.class.new(@numerator, @denominator) if given.nil?
-
-      n_, d_ = multiply_nds([@numerator, @denominator], [given.numerator, given.denominator])
-
-      self.class.new(n_, d_)
-    end
-
-    def add(given)
-      return self.class.new(@numerator, @denominator) if given.nil?
-
-      n_, d_ = add_nds([@numerator, @denominator], [given.numerator, given.denominator])
-
-      self.class.new(n_, d_)
-    end
-
-    attr_reader :numerator, :denominator
+    attr_reader :n, :d
+    alias :numerator :n
+    alias :denominator :d
 
 
     private
 
-    def simplify_nd(n, d)
-      r = Rational(n, d)
-      [r.numerator, r.denominator]
-    end
-
-    def multiply_nds(nd_a, nd_b)
-      na, da = nd_a
-      nb, db = nd_b
-
-      n_ = na * nb
-      d_ = da * db
-
-      simplify_nd(n_, d_)
-    end
-
-    def add_nds(nd_a, nd_b)
-      na, da = nd_a
-      nb, db = nd_b
-
-      n_ = na * db + nb * da
-      d_ = da * db
-
-      simplify_nd(n_, d_)
-    end
-
-    def destruct_self_with(r)
-      @numerator, @denominator = r.numerator, r.denominator
+    def destruct(r)
+      @n = r.n
+      @d = r.d
     end
   end
 
   class Radical < PrimeFactor
     def initialize(i, r)
-      @index = i
-      @radicand = r
+      @i = i
+      @r = r
     end
 
-    attr_reader :index, :radicand
+    attr_reader :i, :r
+    alias :index :i
+    alias :radicand :r
   end
 
   class Exponential < PrimeFactor
     def initialize(b, e)
-      @base = b
-      @exponent = e
+      @b = b
+      @e = e
     end
 
-    attr_reader :base, :exponent
+    attr_reader :b, :e
+    alias :base :b
+    alias :exponent :e
   end
 
   class Logarithm < PrimeFactor
-    def initialize(b, n)
-      @base = b
-      @real_number = n
+    def initialize(b, rn)
+      @b = b
+      @rn = rn
     end
 
-    attr_reader :base, :real_number
+    attr_reader :b, :rn
+    alias :base :b
+    alias :real_number :rn
   end
 
 
   class Term < Calculatable
     include Addable
 
+    class << self
+      def compare(a, b)
+        a.factors == b.factors
+      end
+
+      def simplify(a)
+        a_clsd = classify_factors(a.factors)
+
+        res = a_clsd.map { |_, fs| fs.reduce(&:*) }
+
+        new(*res)
+      end
+
+      def add(a, b)
+        a_clsd = classify_factors(a.factors)
+        b_clsd = classify_factors(b.factors)
+
+        res_clsd = a_clsd.merge(b_clsd) { |_, fs_a, fs_b|
+          fs_a_smpd = simplify(new(*fs_a)).factors
+          fs_b_smpd = simplify(new(*fs_b)).factors
+
+          fs_a_smpd.first + fs_b_smpd.first
+        }
+
+        res = res_clsd.values
+
+        new(*res)
+      end
+
+
+      private
+
+      def classify_factors(factors)
+        factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
+      end
+    end
+
+
     def initialize(*factors)
       @factors = factors
     end
-
-    def ==(given)
-      return false if given.nil?
-
-      @factors == given.factors
-    end
-
-    def simplify
-      fcts_ = simplify_factors(@factors)
-
-      self.class.new(*fcts_)
-    end
-
-    def add(given)
-      return self.class.new(@factors) if given.nil?
-
-      fcts_ = add_2factors(@factors, given.factors)
-
-      self.class.new(*fcts_)
-    end
-
-    alias :<< :add!
 
     attr_reader :factors
 
 
     private
 
-    def simplify_factors(factors)
-      cfactors = classify_factors(factors)
-
-      cfactors.map { |_, fs| fs.reduce(&:*) }
-    end
-
-    def add_2factors(factors_a, factors_b)
-      cfactors_a = classify_factors(factors_a)
-      cfactors_b = classify_factors(factors_b)
-
-      cfcts_ = cfactors_a.merge(cfactors_b) { |_, fs_a, fs_b| simplify_factors(fs_a).first + simplify_factors(fs_b).first }
-
-      cfcts_.values
-    end
-
-    def classify_factors(factors)
-      factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
-    end
-
-    def destruct_self_with(t)
-      @factors = t.factors
+    def destruct(trm_)
+      @factors = trm_.factors
     end
   end
 
   class Expression < Element
+    class << self
+      def compare(a, b)
+        a.terms == b.terms
+      end
+
+      def simplify(a)
+        t_ = a.terms.reduce(&:+)
+
+        res = [t_]
+
+        new(*res)
+      end
+    end
+
+
     def initialize(*terms)
       @terms = terms
-    end
-
-    def ==(given)
-      return false if given.nil?
-
-      @terms == given.terms
-    end
-
-    def simplify
-      trms_ = simplify_terms(@terms)
-
-      self.class.new(*trms_)
     end
 
     attr_reader :terms
@@ -264,13 +269,8 @@ module Calculator
 
     private
 
-    def simplify_terms(terms)
-      t_ = terms.reduce(&:+)
-      [t_]
-    end
-
-    def destruct_self_with(e)
-      @terms = e.terms
+    def destruct(expr_)
+      @terms = expr_.terms
     end
   end
 
