@@ -94,20 +94,14 @@ module Calculator
   end
 
   class CFactor < Factor
-    class << self
-      def generate_params(c, pf)
-        { c: c, pf: pf }
-      end
+    def initialize(c, pf)
+      @c = c
+      @pf = pf
     end
 
-
-    def coefficient
-      @params[:c]
-    end
-
-    def prime_factor
-      @params[:pf]
-    end
+    attr_reader :c, :pf
+    alias :coefficient :c
+    alias :prime_factor :pf
   end
 
   class PrimeFactor < Factor
