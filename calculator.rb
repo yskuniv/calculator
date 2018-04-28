@@ -72,21 +72,19 @@ module Calculator
 
   class Factor < Calculatable
     class << self
-      def multiply_2params(a, b)
+      def multiply(a, b)
         raise NotImplementedError.new
       end
     end
 
     def multiply(given)
-      params_ = self.class.multiply_2params(@params, given.params)
-
-      self.class.new(params_)
+      self.class.multiply(self, given)
     end
 
     def multiply!(given)
-      params_ = self.class.multiply_2params(@params, given.params)
+      fct_ = self.class.multiply(self, given)
 
-      @params = params_
+      destruct(fct_)
 
       self
     end
