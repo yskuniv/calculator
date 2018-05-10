@@ -177,6 +177,23 @@ module Calculator
       def compare(a, b)
         [a.i, a.r] == [b.i, b.r]
       end
+
+      def simplify(a)
+        r_fctd = CalculatorUtils::factorization(a.r)
+
+        cr_ = r_fctd.reduce({ c: 1, r: 1 }) { |s, (f, n)|
+          d = case n % a.i
+              when 0
+                { c: f ** (n / a.i), r: 1 }
+              else
+                { c: 1, r: f ** n }
+              end
+
+          s.merge(d) { |_, a, b| a * b }
+        }
+
+        CFactor.new(Rational.new(cr_[:c], 1), new(a.i, cr_[:r]))
+      end
     end
 
 
