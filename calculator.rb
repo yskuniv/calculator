@@ -1,3 +1,5 @@
+require_relative './lib/calculator/utils.rb'
+
 module Calculator
   class Element
     class << self
@@ -124,9 +126,9 @@ module Calculator
       end
 
       def simplify(a)
-        r = Rational(a.n, a.d)
+        n_, d_ = CalculatorUtils::reduction(a.n, a.d)
 
-        new(r.numerator, r.denominator)
+        new(n_, d_)
       end
 
       def multiply(a, b)
