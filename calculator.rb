@@ -126,7 +126,7 @@ module Calculator
       end
 
       def simplify(a)
-        n_, d_ = CalculatorUtils::reduction(a.numerator, a.denominator)
+        n_, d_ = CalculatorUtils::reduction(a.n, a.d)
 
         new(n_, d_)
       end
