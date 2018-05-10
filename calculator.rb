@@ -173,6 +173,13 @@ module Calculator
   end
 
   class Radical < PrimeFactor
+    class << self
+      def compare(a, b)
+        [a.i, a.r] == [b.i, b.r]
+      end
+    end
+
+
     def initialize(i, r)
       @i = i
       @r = r
