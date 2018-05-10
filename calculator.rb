@@ -96,6 +96,13 @@ module Calculator
   end
 
   class CFactor < Factor
+    class << self
+      def compare(a, b)
+        [a.c, a.pf] == [b.c, b.pf]
+      end
+    end
+
+
     def initialize(c, pf)
       @c = c
       @pf = pf
