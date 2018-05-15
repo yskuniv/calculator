@@ -236,6 +236,21 @@ module Calculator
       def compare(a, b)
         [a.b, a.e] == [b.b, b.e]
       end
+
+      def simplify(a)
+        b = a.b
+        e = a.e.simplify
+
+        mcb_ = CalculatorUtils::factorization(b ** (e.n % e.d))
+                 .reduce({ c: 1, b: 1 }) { |s, (f, n)| s.merge({ c: f ** (n / e.d),
+                                                                 b: f ** (n % e.d) }) { |_, a, b| a * b } }
+
+        c_ = b ** (e.n / e.d) * mcb_[:c]
+        b_ = mcb_[:b]
+        e_ = Rational.new(1, (b_ == 1) ? 1 : e.d)
+
+        CFactor.generate(Rational.new(c_, 1), new(b_, e_))
+      end
     end
 
 
