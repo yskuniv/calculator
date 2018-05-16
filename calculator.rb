@@ -1,5 +1,6 @@
 require_relative './lib/calculator/utils.rb'
 
+
 module Calculator
   class Element
     class << self
@@ -78,6 +79,7 @@ module Calculator
         raise NotImplementedError.new
       end
     end
+
 
     def multiply(given)
       self.class.multiply(self, given)
