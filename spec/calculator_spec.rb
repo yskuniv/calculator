@@ -51,18 +51,22 @@ describe Calculator::Term do
 
   describe '#simplify' do
 
-    it 'simplifies properly (This is not a simple unit test)' do
-      expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].simplify).
-        to eq Calculator::Term[Calculator::Rat[1, 2]]
+    context 'when the term consists of Rationals' do
+      it 'simplifies properly (This is not a simple unit test)' do
+        expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].simplify).
+          to eq Calculator::Term[Calculator::Rat[1, 2]]
+      end
     end
 
   end
 
   describe '#add' do
 
-    it 'adds given properly (This is not a simple unit test)' do
-      expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].add(Calculator::Term[Calculator::Rat[1, 3]])).
-        to eq Calculator::Term[Calculator::Rat[5, 6]]
+    context 'when the term consists of Rationals' do
+      it 'adds given properly (This is not a simple unit test)' do
+        expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].add(Calculator::Term[Calculator::Rat[1, 3]])).
+          to eq Calculator::Term[Calculator::Rat[5, 6]]
+      end
     end
 
   end
@@ -73,10 +77,12 @@ describe Calculator::Expression do
 
   describe '#simplify' do
 
-    it 'simplifies properly (This is not a simple unit test)' do
-      expect(Calculator::Expression[Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]],
-                                    Calculator::Term[Calculator::Rat[1, 3]]].simplify).
-        to eq Calculator::Expression[Calculator::Term[Calculator::Rat[5, 6]]]
+    context 'when the term consists of Rationals' do
+      it 'simplifies properly (This is not a simple unit test)' do
+        expect(Calculator::Expression[Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]],
+                                      Calculator::Term[Calculator::Rat[1, 3]]].simplify).
+          to eq Calculator::Expression[Calculator::Term[Calculator::Rat[5, 6]]]
+      end
     end
 
   end
