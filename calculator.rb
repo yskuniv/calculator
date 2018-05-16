@@ -111,6 +111,21 @@ module Calculator
 
   class CFactor < Factor
     class << self
+      def generate(c, pf)
+        shrink(new(c, pf))
+      end
+
+      def shrink(a)
+        case
+        when a.pf.identity?
+          a.c
+        when a.c.identity?
+          a.pf
+        else
+          a
+        end
+      end
+
       def compare(a, b)
         [a.c, a.pf] == [b.c, b.pf]
       end
