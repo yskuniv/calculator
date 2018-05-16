@@ -79,6 +79,7 @@ module Calculator
       end
     end
 
+
     def multiply(given)
       self.class.multiply(self, given)
     end
