@@ -74,6 +74,9 @@ module Calculator
   end
 
   class Factor < Calculatable
+    class MultiplicationError < StandardError
+    end
+
     class << self
       def identity
         raise NotImplementedError.new
