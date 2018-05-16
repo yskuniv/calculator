@@ -74,12 +74,27 @@ module Calculator
   end
 
   class Factor < Calculatable
+    class MultiplicationError < StandardError
+    end
+
     class << self
+      def identity
+        raise NotImplementedError.new
+      end
+
+      def identity?(a)
+        compare(a, identity)
+      end
+
       def multiply(a, b)
         raise NotImplementedError.new
       end
     end
 
+
+    def identity?
+      self.class.identity?(self)
+    end
 
     def multiply(given)
       self.class.multiply(self, given)
@@ -99,6 +114,21 @@ module Calculator
 
   class CFactor < Factor
     class << self
+      def generate(c, pf)
+        shrink(new(c, pf))
+      end
+
+      def shrink(a)
+        case
+        when a.pf.identity?
+          a.c
+        when a.c.identity?
+          a.pf
+        else
+          a
+        end
+      end
+
       def compare(a, b)
         [a.c, a.pf] == [b.c, b.pf]
       end
@@ -130,6 +160,10 @@ module Calculator
     include Addable
 
     class << self
+      def identity
+        new(1, 1)
+      end
+
       def compare(a, b)
         [a.n, a.d] == [b.n, b.d]
       end
