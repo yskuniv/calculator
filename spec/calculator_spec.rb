@@ -42,7 +42,7 @@ describe Calculator::Exponential do
 
   describe '#simplify' do
 
-    context 'when the given base is 1' do
+    context 'when 1 is given as a base' do
       it 'returns the identity of Rational' do
         expect(Calculator::Exponential[1, Calculator::Rat[2, 3]].simplify).
           to eq Calculator::Rat[1, 1]
