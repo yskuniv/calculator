@@ -142,6 +142,10 @@ module Calculator
     include Addable
 
     class << self
+      def identity
+        new(1, 1)
+      end
+
       def compare(a, b)
         [a.n, a.d] == [b.n, b.d]
       end
