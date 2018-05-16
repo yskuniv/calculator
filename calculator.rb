@@ -229,6 +229,10 @@ module Calculator
 
   class Exponential < PrimeFactor
     class << self
+      def identity
+        new(1, Rational.new(1, 1))
+      end
+
       def compare(a, b)
         [a.b, a.e] == [b.b, b.e]
       end
