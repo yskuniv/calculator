@@ -119,6 +119,13 @@ describe Calculator::Term do
       end
     end
 
+    context 'when the term consists of Exponentials' do
+      it 'simplifies properly (This is not a simple unit test)' do
+        expect(Calculator::Term[Calculator::Exp[2, Calculator::Rat[1, 3]], Calculator::Exp[2, Calculator::Rat[1, 3]]].simplify).
+          to eq Calculator::Term[Calculator::Exp[4, Calculator::Rat[1, 3]]]
+      end
+    end
+
   end
 
   describe '#add' do
