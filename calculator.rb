@@ -228,6 +228,12 @@ module Calculator
   end
 
   class Exponential < PrimeFactor
+    class ExponentialMultiplicationError < MultiplicationError
+      def initialize
+        super('base not compatible')
+      end
+    end
+
     class << self
       def identity
         new(1, Rational.new(1, 1))
@@ -250,6 +256,18 @@ module Calculator
         e_ = Rational.new(1, (b_ == 1) ? 1 : e.d)
 
         CFactor.generate(Rational.new(c_, 1), new(b_, e_))
+      end
+
+      def multiply(a, b)
+        case
+        when a.b == b.b
+          b_ = a.b
+          e_ = a.e + b.e
+
+          simplify(new(b_, e_))
+        else
+          raise ExponentialMultiplicationError.new
+        end
       end
     end
 
