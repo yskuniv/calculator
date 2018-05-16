@@ -83,6 +83,24 @@ describe Calculator::Exponential do
 
   end
 
+  describe '#multiply' do
+
+    context 'in ordinary case' do
+      it 'returns a correct value' do
+        expect(Calculator::Exponential[2, Calculator::Rat[1, 3]].multiply(Calculator::Exponential[2, Calculator::Rat[1, 3]])).
+          to eq Calculator::Exponential[4, Calculator::Rat[1, 3]]
+      end
+    end
+
+    context 'when an incompatible one is given' do
+      it 'raises an Error' do
+        expect { Calculator::Exponential[2, Calculator::Rat[1, 3]].multiply(Calculator::Exponential[3, Calculator::Rat[1, 3]]) }.
+          to raise_error(Calculator::Exponential::ExponentialMultiplicationError)
+      end
+    end
+
+  end
+
 end
 
 describe Calculator::Logarithm do
