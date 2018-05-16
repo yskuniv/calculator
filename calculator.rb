@@ -75,11 +75,23 @@ module Calculator
 
   class Factor < Calculatable
     class << self
+      def identity
+        raise NotImplementedError.new
+      end
+
+      def identity?(a)
+        compare(a, identity)
+      end
+
       def multiply(a, b)
         raise NotImplementedError.new
       end
     end
 
+
+    def identity?
+      self.class.identity?(self)
+    end
 
     def multiply(given)
       self.class.multiply(self, given)
