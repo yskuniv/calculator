@@ -1,8 +1,10 @@
 require 'spec_helper'
 require_relative '../calculator.rb'
 
+include Calculator
 
-describe Calculator::CFactor do
+
+describe CFactor do
   pending
 end
 
@@ -11,7 +13,7 @@ describe Calculator::Rational do
   describe '#simplify' do
 
     it 'simplifies properly' do
-      expect(Calculator::Rational[2, 4].simplify).to eq Calculator::Rational[1, 2]
+      expect(Rat[2, 4].simplify).to eq Rat[1, 2]
     end
 
   end
@@ -19,7 +21,7 @@ describe Calculator::Rational do
   describe '#multiply' do
 
     it 'multiplies with given properly' do
-      expect(Calculator::Rational[2, 3].multiply(Calculator::Rational[3, 4])).to eq Calculator::Rational[1, 2]
+      expect(Rat[2, 3].multiply(Rat[3, 4])).to eq Rat[1, 2]
     end
 
   end
@@ -27,32 +29,32 @@ describe Calculator::Rational do
   describe '#add' do
 
     it 'adds given properly' do
-      expect(Calculator::Rational[2, 3].add(Calculator::Rational[5, 6])).to eq Calculator::Rational[3, 2]
+      expect(Rat[2, 3].add(Rat[5, 6])).to eq Rat[3, 2]
     end
 
   end
 
 end
 
-describe Calculator::Radical do
+describe Radical do
   pending
 end
 
-describe Calculator::Exponential do
+describe Exponential do
 
   describe '#simplify' do
 
     context 'when 1 is given as a base' do
       it 'returns the identity of Rational' do
-        expect(Calculator::Exponential[1, Calculator::Rat[2, 3]].simplify).
-          to eq Calculator::Rat[1, 1]
+        expect(Exp[1, Rat[2, 3]].simplify).
+          to eq Rat[1, 1]
       end
     end
 
     context 'when an integer exponent is given' do
       it 'returns a simple Rational' do
-        expect(Calculator::Exponential[2, Calculator::Rat[3, 1]].simplify).
-          to eq Calculator::Rat[8, 1]
+        expect(Exp[2, Rat[3, 1]].simplify).
+          to eq Rat[8, 1]
       end
     end
 
@@ -60,15 +62,15 @@ describe Calculator::Exponential do
 
       context 'in case that only a Exponential is expected to return' do
         it 'returns a proper Exponential' do
-          expect(Calculator::Exponential[2, Calculator::Rat[2, 3]].simplify).
-            to eq Calculator::Exponential[4, Calculator::Rat[1, 3]]
+          expect(Exp[2, Rat[2, 3]].simplify).
+            to eq Exp[4, Rat[1, 3]]
         end
       end
 
       context 'in case that a CFactor is expected to return' do
         it 'returns a proper CFactor' do
-          expect(Calculator::Exponential[24, Calculator::Rat[1, 2]].simplify).
-            to eq Calculator::CFactor[Calculator::Rat[2, 1], Calculator::Exponential[6, Calculator::Rat[1, 2]]]
+          expect(Exp[24, Rat[1, 2]].simplify).
+            to eq CFactor[Rat[2, 1], Exp[6, Rat[1, 2]]]
         end
       end
 
@@ -78,15 +80,15 @@ describe Calculator::Exponential do
 
       context 'when e.n < e.d' do
         it 'returns a proper CFactor' do
-          expect(Calculator::Exponential[144, Calculator::Rat[2, 3]].simplify).
-            to eq Calculator::CFactor[Calculator::Rat[12, 1], Calculator::Exponential[12, Calculator::Rat[1, 3]]]
+          expect(Exp[144, Rat[2, 3]].simplify).
+            to eq CFactor[Rat[12, 1], Exp[12, Rat[1, 3]]]
         end
       end
 
       context 'when e.n > e.d' do
         it 'returns a proper CFactor' do
-          expect(Calculator::Exponential[144, Calculator::Rat[8, 3]].simplify).
-            to eq Calculator::CFactor[Calculator::Rat[248832, 1], Calculator::Exponential[12, Calculator::Rat[1, 3]]]
+          expect(Exp[144, Rat[8, 3]].simplify).
+            to eq CFactor[Rat[248832, 1], Exp[12, Rat[1, 3]]]
         end
       end
 
@@ -98,15 +100,15 @@ describe Calculator::Exponential do
 
     context 'in ordinary case' do
       it 'returns a correct value' do
-        expect(Calculator::Exponential[2, Calculator::Rat[1, 3]].multiply(Calculator::Exponential[2, Calculator::Rat[1, 3]])).
-          to eq Calculator::Exponential[4, Calculator::Rat[1, 3]]
+        expect(Exp[2, Rat[1, 3]].multiply(Exp[2, Rat[1, 3]])).
+          to eq Exp[4, Rat[1, 3]]
       end
     end
 
     context 'when an incompatible one is given' do
       it 'raises an Error' do
-        expect { Calculator::Exponential[2, Calculator::Rat[1, 3]].multiply(Calculator::Exponential[3, Calculator::Rat[1, 3]]) }.
-          to raise_error(Calculator::Exponential::ExponentialMultiplicationError)
+        expect { Exp[2, Rat[1, 3]].multiply(Exp[3, Rat[1, 3]]) }.
+          to raise_error(Exponential::ExponentialMultiplicationError)
       end
     end
 
@@ -114,26 +116,26 @@ describe Calculator::Exponential do
 
 end
 
-describe Calculator::Logarithm do
+describe Logarithm do
   pending
 end
 
 
-describe Calculator::Term do
+describe Term do
 
   describe '#simplify' do
 
     context 'when the term consists of Rationals' do
       it 'simplifies properly (This is not a simple unit test)' do
-        expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].simplify).
-          to eq Calculator::Term[Calculator::Rat[1, 2]]
+        expect(Term[Rat[2, 3], Rat[3, 4]].simplify).
+          to eq Term[Rat[1, 2]]
       end
     end
 
     context 'when the term consists of Exponentials' do
       it 'simplifies properly (This is not a simple unit test)' do
-        expect(Calculator::Term[Calculator::Exp[2, Calculator::Rat[1, 3]], Calculator::Exp[2, Calculator::Rat[1, 3]]].simplify).
-          to eq Calculator::Term[Calculator::Exp[4, Calculator::Rat[1, 3]]]
+        expect(Term[Exp[2, Rat[1, 3]], Exp[2, Rat[1, 3]]].simplify).
+          to eq Term[Exp[4, Rat[1, 3]]]
       end
     end
 
@@ -143,8 +145,8 @@ describe Calculator::Term do
 
     context 'when the term consists of Rationals' do
       it 'adds given properly (This is not a simple unit test)' do
-        expect(Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]].add(Calculator::Term[Calculator::Rat[1, 3]])).
-          to eq Calculator::Term[Calculator::Rat[5, 6]]
+        expect(Term[Rat[2, 3], Rat[3, 4]].add(Term[Rat[1, 3]])).
+          to eq Term[Rat[5, 6]]
       end
     end
 
@@ -152,15 +154,15 @@ describe Calculator::Term do
 
 end
 
-describe Calculator::Expression do
+describe Expression do
 
   describe '#simplify' do
 
     context 'when the term consists of Rationals' do
       it 'simplifies properly (This is not a simple unit test)' do
-        expect(Calculator::Expression[Calculator::Term[Calculator::Rat[2, 3], Calculator::Rat[3, 4]],
-                                      Calculator::Term[Calculator::Rat[1, 3]]].simplify).
-          to eq Calculator::Expression[Calculator::Term[Calculator::Rat[5, 6]]]
+        expect(Expression[Term[Rat[2, 3], Rat[3, 4]],
+                          Term[Rat[1, 3]]].simplify).
+          to eq Expression[Term[Rat[5, 6]]]
       end
     end
 
