@@ -3,6 +3,12 @@ require_relative './lib/calculator/utils.rb'
 
 module Calculator
   class Element
+    class ElementTypeMismatchError < TypeError
+      def initialize(a, b)
+        super("#{b.class.to_s} does not match to #{a.class.to_s}")
+      end
+    end
+
     class << self
       def compare(a, b)
         raise NotImplementedError.new
@@ -17,6 +23,8 @@ module Calculator
 
 
     def compare(given)
+      raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
+
       self.class.compare(self, given)
     end
 
@@ -57,6 +65,8 @@ module Calculator
     end
 
     def add(given)
+      raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
+
       self.class.add(self, given)
     end
 
@@ -95,6 +105,8 @@ module Calculator
     end
 
     def multiply(given)
+      raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
+
       self.class.multiply(self, given)
     end
 
