@@ -17,8 +17,6 @@ module Calculator
 
 
     def compare(given)
-      return false if given.nil?
-
       self.class.compare(self, given)
     end
 
