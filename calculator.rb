@@ -228,6 +228,53 @@ module Calculator
   end
 
   class Exponential < PrimeFactor
+    class ExponentialMultiplicationError < MultiplicationError
+      def initialize
+        super('base not compatible')
+      end
+    end
+
+    class << self
+      def identity
+        new(1, Rational.new(1, 1))
+      end
+
+      def compare(a, b)
+        [a.b, a.e] == [b.b, b.e]
+      end
+
+      def simplify(a)
+        b = a.b
+        e = a.e.simplify
+
+        e_div = e.n / e.d
+        e_rem = e.n % e.d
+
+        mcb_ = CalculatorUtils::factorization(b ** e_rem)
+                 .reduce({ c: 1, b: 1 }) { |s, (f, n)| s.merge({ c: f ** (n / e.d),
+                                                                 b: f ** (n % e.d) }) { |_, a, b| a * b } }
+
+        c_ = b ** e_div * mcb_[:c]
+        b_ = mcb_[:b]
+        e_ = Rational.new(1, (b_ == 1) ? 1 : e.d)
+
+        CFactor.generate(Rational.new(c_, 1), new(b_, e_))
+      end
+
+      def multiply(a, b)
+        case
+        when a.b == b.b
+          b_ = a.b
+          e_ = a.e + b.e
+
+          simplify(new(b_, e_))
+        else
+          raise ExponentialMultiplicationError.new
+        end
+      end
+    end
+
+
     def initialize(b, e)
       @b = b
       @e = e
