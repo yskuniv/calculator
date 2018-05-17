@@ -1,6 +1,8 @@
 require 'spec_helper'
 require_relative '../calculator.rb'
 
+include Calculator
+
 
 describe Calculator::CFactor do
   pending
