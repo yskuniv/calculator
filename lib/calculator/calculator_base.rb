@@ -39,6 +39,9 @@ module Calculator
   module Addable
     include OperationDefinerHelper
 
+    class AdditionError < StandardError
+    end
+
     define_binary_operation_and_its_destructive_method :add
 
     alias :+ :add
