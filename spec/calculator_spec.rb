@@ -58,6 +58,13 @@ describe Calculator::Exponential do
 
     context 'when a simple rational exponent is given' do
 
+      context 'in case that only a Exponential is expected to return' do
+        it 'returns a proper Exponential' do
+          expect(Calculator::Exponential[2, Calculator::Rat[2, 3]].simplify).
+            to eq Calculator::Exponential[4, Calculator::Rat[1, 3]]
+        end
+      end
+
       context 'in case that a CFactor is expected to return' do
         it 'returns a proper CFactor' do
           expect(Calculator::Exponential[24, Calculator::Rat[1, 2]].simplify).
