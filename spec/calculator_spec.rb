@@ -57,10 +57,14 @@ describe Calculator::Exponential do
     end
 
     context 'when a simple rational exponent is given' do
-      it 'returns a proper CFactor' do
-        expect(Calculator::Exponential[24, Calculator::Rat[1, 2]].simplify).
-          to eq Calculator::CFactor[Calculator::Rat[2, 1], Calculator::Exponential[6, Calculator::Rat[1, 2]]]
+
+      context 'in case that a CFactor is expected to return' do
+        it 'returns a proper CFactor' do
+          expect(Calculator::Exponential[24, Calculator::Rat[1, 2]].simplify).
+            to eq Calculator::CFactor[Calculator::Rat[2, 1], Calculator::Exponential[6, Calculator::Rat[1, 2]]]
+        end
       end
+
     end
 
     context 'when a complicated exponent is given' do
