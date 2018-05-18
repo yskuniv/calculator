@@ -64,6 +64,7 @@ module Calculator
       end
     end
 
+
     def add(given)
       raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
 
