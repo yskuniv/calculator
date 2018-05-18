@@ -1,4 +1,4 @@
-require_relative './lib/calculator/utils.rb'
+require_relative './utils.rb'
 
 
 module Calculator
