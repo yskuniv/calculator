@@ -1,128 +1,8 @@
+require_relative './calculator_base.rb'
 require_relative './utils.rb'
 
 
 module Calculator
-  class Element
-    class ElementTypeMismatchError < TypeError
-      def initialize(a, b)
-        super("#{b.class.to_s} does not match to #{a.class.to_s}")
-      end
-    end
-
-    class << self
-      def compare(a, b)
-        raise NotImplementedError.new
-      end
-
-      def simplify(a)
-        raise NotImplementedError.new
-      end
-
-      alias :[] :new
-    end
-
-
-    def compare(given)
-      raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
-
-      self.class.compare(self, given)
-    end
-
-    def simplify
-      self.class.simplify(self)
-    end
-
-    def simplify!
-      elm_ = self.class.simplify(self)
-
-      destruct(elm_)
-
-      self
-    end
-
-    alias :== :compare
-    alias :! :simplify!
-
-
-    private
-
-    def destruct(nw_)
-      raise NotImplementedError.new
-    end
-  end
-
-  class Calculatable < Element
-    def <<(given)
-      raise NotImplementedError.new
-    end
-  end
-
-  module Addable
-    class << self
-      def add(a, b)
-        raise NotImplementedError.new
-      end
-    end
-
-
-    def add(given)
-      raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
-
-      self.class.add(self, given)
-    end
-
-    def add!(given)
-      add_ = self.class.add(self, given)
-
-      destruct(add_)
-
-      self
-    end
-
-    alias :+ add
-  end
-
-  class Factor < Calculatable
-    class MultiplicationError < StandardError
-    end
-
-    class << self
-      def identity
-        raise NotImplementedError.new
-      end
-
-      def identity?(a)
-        compare(a, identity)
-      end
-
-      def multiply(a, b)
-        raise NotImplementedError.new
-      end
-    end
-
-
-    def identity?
-      self.class.identity?(self)
-    end
-
-    def multiply(given)
-      raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
-
-      self.class.multiply(self, given)
-    end
-
-    def multiply!(given)
-      fct_ = self.class.multiply(self, given)
-
-      destruct(fct_)
-
-      self
-    end
-
-    alias :* :multiply
-    alias :<< :multiply!
-  end
-
   class CFactor < Factor
     class << self
       def generate(c, pf)
@@ -162,9 +42,6 @@ module Calculator
       @c = nw_.c
       @pf = nw_.pf
     end
-  end
-
-  class PrimeFactor < Factor
   end
 
   class Rational < PrimeFactor
