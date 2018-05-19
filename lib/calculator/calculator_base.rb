@@ -56,8 +56,12 @@ module Calculator
 
   module Addable
     class << self
-      def add(a, b)
-        raise NotImplementedError.new
+      def included(cls)
+        class << cls
+          def add(a, b)
+            raise NotImplementedError.new
+          end
+        end
       end
     end
 
