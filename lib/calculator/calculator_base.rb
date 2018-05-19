@@ -84,23 +84,11 @@ module Calculator
     end
 
     class << self
-      def identity
-        raise NotImplementedError.new
-      end
-
-      def identity?(a)
-        compare(a, identity)
-      end
-
       def multiply(a, b)
         raise NotImplementedError.new
       end
     end
 
-
-    def identity?
-      self.class.identity?(self)
-    end
 
     def multiply(given)
       raise ElementTypeMismatchError.new(self, given) unless self.class == given.class
@@ -121,5 +109,19 @@ module Calculator
   end
 
   class PrimeFactor < Factor
+    class << self
+      def identity
+        raise NotImplementedError.new
+      end
+
+      def identity?(a)
+        compare(a, identity)
+      end
+    end
+
+
+    def identity?
+      self.class.identity?(self)
+    end
   end
 end
