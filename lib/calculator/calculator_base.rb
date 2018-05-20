@@ -58,35 +58,6 @@ module Calculator
     end
   end
 
-  module Addable
-    class << self
-      def included(cls)
-        class << cls
-          def add(a, b)
-            raise NotImplementedError.new
-          end
-        end
-      end
-    end
-
-
-    def add(given)
-      raise OperandTypeMismatchError.new(self, given) unless self.class == given.class
-
-      self.class.add(self, given)
-    end
-
-    def add!(given)
-      add_ = self.class.add(self, given)
-
-      destruct(add_)
-
-      self
-    end
-
-    alias :+ add
-  end
-
   class Factor < Calculatable
     class MultiplicationError < StandardError
     end
