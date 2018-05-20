@@ -43,45 +43,10 @@ module Calculator
 
 
   class Element
+    include Comparable, Simplifable
+
     class << self
-      def compare(a, b)
-        raise NotImplementedError.new
-      end
-
-      def simplify(a)
-        raise NotImplementedError.new
-      end
-
       alias :[] :new
-    end
-
-
-    def compare(given)
-      raise OperandTypeMismatchError.new(self, given) unless self.class == given.class
-
-      self.class.compare(self, given)
-    end
-
-    def simplify
-      self.class.simplify(self)
-    end
-
-    def simplify!
-      elm_ = self.class.simplify(self)
-
-      destruct(elm_)
-
-      self
-    end
-
-    alias :== :compare
-    alias :! :simplify!
-
-
-    private
-
-    def destruct(nw_)
-      raise NotImplementedError.new
     end
   end
 
@@ -92,31 +57,12 @@ module Calculator
   end
 
   class Factor < Calculatable
+    include Multiplable
+
     class MultiplicationError < StandardError
     end
 
-    class << self
-      def multiply(a, b)
-        raise NotImplementedError.new
-      end
-    end
 
-
-    def multiply(given)
-      raise OperandTypeMismatchError.new(self, given) unless self.class == given.class
-
-      self.class.multiply(self, given)
-    end
-
-    def multiply!(given)
-      fct_ = self.class.multiply(self, given)
-
-      destruct(fct_)
-
-      self
-    end
-
-    alias :* :multiply
     alias :<< :multiply!
   end
 
