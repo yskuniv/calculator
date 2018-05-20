@@ -27,8 +27,6 @@ module Calculator
 
             self
           end
-
-          define_destruct
         end
 
         def define_binary_operation(opr_name)
@@ -57,17 +55,6 @@ module Calculator
             destruct(elm_)
 
             self
-          end
-
-          define_destruct
-        end
-
-
-        private
-
-        def define_destruct
-          define_method(:destruct) do |elm_|
-            raise NotImplementedError.new
           end
         end
       end
