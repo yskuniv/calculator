@@ -1,7 +1,6 @@
 module Calculator
   module OperationDefinerHelper
-    class << self
-      def included(mod)
+      def self.included(mod)
         class << mod
           def define_unary_operation(opr_name)
             define_singleton_method(:included) do |cls|
@@ -73,6 +72,5 @@ module Calculator
           end
         end
       end
-    end
   end
 end
