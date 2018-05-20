@@ -48,6 +48,13 @@ module Calculator
     class << self
       alias :[] :new
     end
+
+
+    private
+
+    def destruct(nw_)
+      raise NotImplementedError.new
+    end
   end
 
   class Calculatable < Element
