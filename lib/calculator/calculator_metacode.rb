@@ -21,9 +21,9 @@ module Calculator
           define_unary_operation(opr_name)
 
           define_method("#{opr_name}!") do
-            elm_ = self.class.method(opr_name)[self]
+            nw_ = self.class.method(opr_name)[self]
 
-            destruct(elm_)
+            destruct(nw_)
 
             self
           end
@@ -50,9 +50,9 @@ module Calculator
           define_binary_operation(opr_name)
 
           define_method("#{opr_name}!") do |given|
-            elm_ = self.class.method(opr_name)[self, given]
+            nw_ = self.class.method(opr_name)[self, given]
 
-            destruct(elm_)
+            destruct(nw_)
 
             self
           end
