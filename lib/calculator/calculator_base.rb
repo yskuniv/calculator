@@ -1,3 +1,6 @@
+require_relative './calculator_metacode.rb'
+
+
 module Calculator
   class OperandTypeMismatchError < TypeError
     def initialize(a, b)
