@@ -9,6 +9,39 @@ module Calculator
   end
 
 
+  module Comparable
+    include OperationDefinerHelper
+
+    define_binary_operation :compare
+
+    alias :== :compare
+  end
+
+  module Simplifable
+    include OperationDefinerHelper
+
+    define_unary_operation_and_its_destructive_method :simplify
+
+    alias :! :simplify!
+  end
+
+  module Multiplable
+    include OperationDefinerHelper
+
+    define_binary_operation_and_its_destructive_method :multiply
+
+    alias :* :multiply
+  end
+
+  module Addable
+    include OperationDefinerHelper
+
+    define_binary_operation_and_its_destructive_method :add
+
+    alias :+ :add
+  end
+
+
   class Element
     class << self
       def compare(a, b)
