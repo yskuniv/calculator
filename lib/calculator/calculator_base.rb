@@ -28,6 +28,9 @@ module Calculator
   module Multiplable
     include OperationDefinerHelper
 
+    class MultiplicationError < StandardError
+    end
+
     define_binary_operation_and_its_destructive_method :multiply
 
     alias :* :multiply
@@ -65,9 +68,6 @@ module Calculator
 
   class Factor < Calculatable
     include Multiplable
-
-    class MultiplicationError < StandardError
-    end
 
 
     alias :<< :multiply!
