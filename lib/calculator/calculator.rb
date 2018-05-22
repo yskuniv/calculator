@@ -253,16 +253,16 @@ module Calculator
       end
 
       def simplify(a)
-        a_clsd = classify_factors(a.factors)
+        a_clsd = ClassifiedFactors.new(a.factors)
 
-        res = a_clsd.map { |_, fs| fs.reduce(&:*) }
+        res_clsd = a_clsd.map { |_, fs| [fs.reduce(&:*)] }
 
-        new(*res)
+        new(*res_clsd.to_factors)
       end
 
       def add(a, b)
-        a_clsd = classify_factors(a.factors)
-        b_clsd = classify_factors(b.factors)
+        a_clsd = ClassifiedFactors.new(a.factors)
+        b_clsd = ClassifiedFactors.new(b.factors)
 
         res_clsd = a_clsd.merge(b_clsd) { |_, fs_a, fs_b|
           fs_a_smpd = simplify(new(*fs_a)).factors
@@ -271,9 +271,7 @@ module Calculator
           fs_a_smpd.first + fs_b_smpd.first
         }
 
-        res = res_clsd.values
-
-        new(*res)
+        new(*res_clsd.to_factors)
       end
 
 
