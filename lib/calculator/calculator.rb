@@ -190,6 +190,64 @@ module Calculator
     include Addable
 
     class << self
+      class ClassifiedFactors
+        def initialize(factors)
+          @classified = factors_to_classified(factors)
+        end
+
+        def [](fct_class)
+          @classified[fct_class]
+        end
+
+        def map(&block)
+          classified_ = new_classified
+
+          @classified.each do |fct_class, fct_lst|
+            classified_[fct_class] = block[fct_class, fct_lst]
+          end
+
+
+          @classified = classified_
+
+          self
+        end
+
+        def merge(other, &block)
+          classified_ = new_classified
+
+          @classified.merge(other.classified) do |fct_class, fct_lst_s, fct_lst_o|
+            classified_[fct_class] = block[fct_class, fct_lst_s, fct_lst_o]
+          end
+
+
+          @classified = classified_
+
+          self
+        end
+
+        def to_factors
+          classified_to_factors(@classified)
+        end
+
+        attr_reader :classified
+
+
+        private
+
+        def factors_to_classified(factors)
+          factors.inject(new_classified) { |s, fct| s[fct.class] << fct; s }
+        end
+
+        def classified_to_factors(classified)
+          classified.map { |_, fct_lst| fct_lst }.inject(&:+)
+        end
+
+        def new_classified
+          Hash.new { |h, k| h[k] = [] }
+        end
+      end
+
+
       def compare(a, b)
         a.factors == b.factors
       end
