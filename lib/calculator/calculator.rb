@@ -238,7 +238,7 @@ module Calculator
     attr_reader :factors
   end
 
-  class Expression < Element
+  class SubExpression < Factor
     class << self
       def compare(a, b)
         a.terms == b.terms
@@ -263,6 +263,31 @@ module Calculator
     end
 
     attr_reader :terms
+  end
+
+  class Expression < Element
+    class << self
+      def compare(a, b)
+        a.sub_expression == b.sub_expression
+      end
+
+      def simplify(a)
+        sub_expression_ = a.sub_expression.simplify
+
+        new(*sub_expression_.terms)
+      end
+    end
+
+
+    def initialize(*terms)
+      @sub_expression = SubExpression.new(*terms)
+    end
+
+    def initialize_with_obj(o)
+      @sub_expression = o.sub_expression
+    end
+
+    attr_reader :sub_expression
   end
 
 
