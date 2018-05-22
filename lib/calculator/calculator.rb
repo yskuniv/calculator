@@ -38,9 +38,9 @@ module Calculator
 
     private
 
-    def destruct(nw_)
-      @c = nw_.c
-      @pf = nw_.pf
+    def destruct(o)
+      @c = o.c
+      @pf = o.pf
     end
   end
 
@@ -90,9 +90,9 @@ module Calculator
 
     private
 
-    def destruct(nw_)
-      @n = nw_.n
-      @d = nw_.d
+    def destruct(o)
+      @n = o.n
+      @d = o.d
     end
   end
 
@@ -109,9 +109,9 @@ module Calculator
 
     private
 
-    def destruct(nw_)
-      @i = nw_.i
-      @r = nw_.r
+    def destruct(o)
+      @i = o.i
+      @r = o.r
     end
   end
 
@@ -175,9 +175,9 @@ module Calculator
 
     private
 
-    def destruct(nw_)
-      @b = nw_.b
-      @e = nw_.e
+    def destruct(o)
+      @b = o.b
+      @e = o.e
     end
   end
 
@@ -194,9 +194,9 @@ module Calculator
 
     private
 
-    def destruct(nw_)
-      @b = nw_.b
-      @rn = nw_.rn
+    def destruct(o)
+      @b = o.b
+      @rn = o.rn
     end
   end
 
@@ -251,8 +251,8 @@ module Calculator
 
     private
 
-    def destruct(trm_)
-      @factors = trm_.factors
+    def destruct(o)
+      @factors = o.factors
     end
   end
 
@@ -281,8 +281,8 @@ module Calculator
 
     private
 
-    def destruct(expr_)
-      @terms = expr_.terms
+    def destruct(o)
+      @terms = o.terms
     end
   end
 

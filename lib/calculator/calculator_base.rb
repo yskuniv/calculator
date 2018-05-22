@@ -55,7 +55,7 @@ module Calculator
 
     private
 
-    def destruct(nw_)
+    def destruct(o)
       raise NotImplementedError.new
     end
   end
