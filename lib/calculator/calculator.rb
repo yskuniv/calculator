@@ -31,17 +31,17 @@ module Calculator
       @pf = pf
     end
 
+    def initialize_with_obj(o)
+      @c = o.c
+      @pf = o.pf
+    end
+
     attr_reader :c, :pf
     alias :coefficient :c
     alias :prime_factor :pf
 
 
     private
-
-    def initialize_with_obj(o)
-      @c = o.c
-      @pf = o.pf
-    end
   end
 
   class Rational < PrimeFactor
@@ -83,17 +83,17 @@ module Calculator
       @d = d
     end
 
+    def initialize_with_obj(o)
+      @n = o.n
+      @d = o.d
+    end
+
     attr_reader :n, :d
     alias :numerator :n
     alias :denominator :d
 
 
     private
-
-    def initialize_with_obj(o)
-      @n = o.n
-      @d = o.d
-    end
   end
 
   class Radical < PrimeFactor
@@ -102,17 +102,17 @@ module Calculator
       @r = r
     end
 
+    def initialize_with_obj(o)
+      @i = o.i
+      @r = o.r
+    end
+
     attr_reader :i, :r
     alias :index :i
     alias :radicand :r
 
 
     private
-
-    def initialize_with_obj(o)
-      @i = o.i
-      @r = o.r
-    end
   end
 
   class Exponential < PrimeFactor
@@ -168,17 +168,17 @@ module Calculator
       @e = e
     end
 
+    def initialize_with_obj(o)
+      @b = o.b
+      @e = o.e
+    end
+
     attr_reader :b, :e
     alias :base :b
     alias :exponent :e
 
 
     private
-
-    def initialize_with_obj(o)
-      @b = o.b
-      @e = o.e
-    end
   end
 
   class Logarithm < PrimeFactor
@@ -187,17 +187,17 @@ module Calculator
       @rn = rn
     end
 
+    def initialize_with_obj(o)
+      @b = o.b
+      @rn = o.rn
+    end
+
     attr_reader :b, :rn
     alias :base :b
     alias :real_number :rn
 
 
     private
-
-    def initialize_with_obj(o)
-      @b = o.b
-      @rn = o.rn
-    end
   end
 
 
@@ -246,14 +246,14 @@ module Calculator
       @factors = factors
     end
 
+    def initialize_with_obj(o)
+      @factors = o.factors
+    end
+
     attr_reader :factors
 
 
     private
-
-    def initialize_with_obj(o)
-      @factors = o.factors
-    end
   end
 
   class Expression < Element
@@ -276,14 +276,14 @@ module Calculator
       @terms = terms
     end
 
+    def initialize_with_obj(o)
+      @terms = o.terms
+    end
+
     attr_reader :terms
 
 
     private
-
-    def initialize_with_obj(o)
-      @terms = o.terms
-    end
   end
 
 
