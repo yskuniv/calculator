@@ -23,7 +23,7 @@ module Calculator
           define_method("#{opr_name}!") do
             nw_ = self.class.method(opr_name)[self]
 
-            destruct(nw_)
+            initialize_with_obj(nw_)
 
             self
           end
@@ -52,7 +52,7 @@ module Calculator
           define_method("#{opr_name}!") do |given|
             nw_ = self.class.method(opr_name)[self, given]
 
-            destruct(nw_)
+            initialize_with_obj(nw_)
 
             self
           end

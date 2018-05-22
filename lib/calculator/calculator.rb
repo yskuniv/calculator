@@ -38,7 +38,7 @@ module Calculator
 
     private
 
-    def destruct(o)
+    def initialize_with_obj(o)
       @c = o.c
       @pf = o.pf
     end
@@ -90,7 +90,7 @@ module Calculator
 
     private
 
-    def destruct(o)
+    def initialize_with_obj(o)
       @n = o.n
       @d = o.d
     end
@@ -109,7 +109,7 @@ module Calculator
 
     private
 
-    def destruct(o)
+    def initialize_with_obj(o)
       @i = o.i
       @r = o.r
     end
@@ -175,7 +175,7 @@ module Calculator
 
     private
 
-    def destruct(o)
+    def initialize_with_obj(o)
       @b = o.b
       @e = o.e
     end
@@ -194,7 +194,7 @@ module Calculator
 
     private
 
-    def destruct(o)
+    def initialize_with_obj(o)
       @b = o.b
       @rn = o.rn
     end
@@ -251,7 +251,7 @@ module Calculator
 
     private
 
-    def destruct(o)
+    def initialize_with_obj(o)
       @factors = o.factors
     end
   end
@@ -281,7 +281,7 @@ module Calculator
 
     private
 
-    def destruct(o)
+    def initialize_with_obj(o)
       @terms = o.terms
     end
   end
