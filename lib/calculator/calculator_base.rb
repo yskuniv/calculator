@@ -53,9 +53,7 @@ module Calculator
     end
 
 
-    private
-
-    def destruct(nw_)
+    def initialize_with_obj(o)
       raise NotImplementedError.new
     end
   end
