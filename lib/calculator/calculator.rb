@@ -39,9 +39,6 @@ module Calculator
     attr_reader :c, :pf
     alias :coefficient :c
     alias :prime_factor :pf
-
-
-    private
   end
 
   class Rational < PrimeFactor
@@ -91,9 +88,6 @@ module Calculator
     attr_reader :n, :d
     alias :numerator :n
     alias :denominator :d
-
-
-    private
   end
 
   class Radical < PrimeFactor
@@ -110,9 +104,6 @@ module Calculator
     attr_reader :i, :r
     alias :index :i
     alias :radicand :r
-
-
-    private
   end
 
   class Exponential < PrimeFactor
@@ -176,9 +167,6 @@ module Calculator
     attr_reader :b, :e
     alias :base :b
     alias :exponent :e
-
-
-    private
   end
 
   class Logarithm < PrimeFactor
@@ -195,9 +183,6 @@ module Calculator
     attr_reader :b, :rn
     alias :base :b
     alias :real_number :rn
-
-
-    private
   end
 
 
@@ -251,9 +236,6 @@ module Calculator
     end
 
     attr_reader :factors
-
-
-    private
   end
 
   class Expression < Element
@@ -281,9 +263,6 @@ module Calculator
     end
 
     attr_reader :terms
-
-
-    private
   end
 
 

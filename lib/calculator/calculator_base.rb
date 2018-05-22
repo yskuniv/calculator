@@ -56,9 +56,6 @@ module Calculator
     def initialize_with_obj(o)
       raise NotImplementedError.new
     end
-
-
-    private
   end
 
   class Calculatable < Element
