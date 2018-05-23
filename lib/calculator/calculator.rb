@@ -190,32 +190,88 @@ module Calculator
     include Addable
 
     class << self
+      class ClassifiedFactors
+        def initialize(factors)
+          @classified = factors_to_classified(factors)
+        end
+
+        def [](fct_class)
+          @classified[fct_class]
+        end
+
+        def map(&block)
+          classified_ = new_classified
+
+          @classified.each do |fct_class, fct_lst|
+            classified_[fct_class] = block[fct_class, fct_lst]
+          end
+
+
+          @classified = classified_
+
+          self
+        end
+
+        def merge(other, &block)
+          classified_ = new_classified
+
+          @classified.merge(other.classified) do |fct_class, fct_lst_s, fct_lst_o|
+            classified_[fct_class] = block[fct_class, fct_lst_s, fct_lst_o]
+          end
+
+
+          @classified = classified_
+
+          self
+        end
+
+        def to_factors
+          classified_to_factors(@classified)
+        end
+
+        attr_reader :classified
+
+
+        private
+
+        def factors_to_classified(factors)
+          factors.inject(new_classified) { |s, fct| s[fct.class] << fct; s }
+        end
+
+        def classified_to_factors(classified)
+          classified.map { |_, fct_lst| fct_lst }.inject(&:+)
+        end
+
+        def new_classified
+          Hash.new { |h, k| h[k] = [] }
+        end
+      end
+
+
       def compare(a, b)
         a.factors == b.factors
       end
 
       def simplify(a)
-        a_clsd = classify_factors(a.factors)
+        a_clsd = ClassifiedFactors.new(a.factors)
 
-        res = a_clsd.map { |_, fs| fs.reduce(&:*) }
+        res_clsd = a_clsd.map { |_, fct_lst| [fct_lst.reduce(&:*)] }
 
-        new(*res)
+        new(*res_clsd.to_factors)
       end
 
       def add(a, b)
-        a_clsd = classify_factors(a.factors)
-        b_clsd = classify_factors(b.factors)
+        a_clsd = ClassifiedFactors.new(a.factors)
+        b_clsd = ClassifiedFactors.new(b.factors)
 
-        res_clsd = a_clsd.merge(b_clsd) { |_, fs_a, fs_b|
-          fs_a_smpd = simplify(new(*fs_a)).factors
-          fs_b_smpd = simplify(new(*fs_b)).factors
+        res_clsd = a_clsd.merge(b_clsd) { |_, fct_lst_a, fct_lst_b|
+          fct_lst_a_smpd = simplify(new(*fct_lst_a)).factors
+          fct_lst_b_smpd = simplify(new(*fct_lst_b)).factors
 
-          fs_a_smpd.first + fs_b_smpd.first
+          fct_lst_a_smpd.first + fct_lst_b_smpd.first
         }
 
-        res = res_clsd.values
-
-        new(*res)
+        new(*res_clsd.to_factors)
       end
 
 
