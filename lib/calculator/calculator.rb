@@ -273,13 +273,6 @@ module Calculator
 
         new(*res_clsd.to_factors)
       end
-
-
-      private
-
-      def classify_factors(factors)
-        factors.inject({}) { |s, f| l = s[f.class] ||= []; l << f; s }
-      end
     end
 
 
