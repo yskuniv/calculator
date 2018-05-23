@@ -265,10 +265,10 @@ module Calculator
         b_clsd = ClassifiedFactors.new(b.factors)
 
         res_clsd = a_clsd.merge(b_clsd) { |_, fct_lst_a, fct_lst_b|
-          fct_lst_a_smpd = simplify(new(*fct_lst_a)).factors
-          fct_lst_b_smpd = simplify(new(*fct_lst_b)).factors
+          t_a = simplify(new(*fct_lst_a))
+          t_b = simplify(new(*fct_lst_b))
 
-          fct_lst_a_smpd.first + fct_lst_b_smpd.first
+          t_a.factors.first + t_b.factors.first
         }
 
         new(*res_clsd.to_factors)
