@@ -36,6 +36,10 @@ module Calculator
       @pf = o.pf
     end
 
+    def to_s
+      "#{@c}*#{@pf}"
+    end
+
     attr_reader :c, :pf
     alias :coefficient :c
     alias :prime_factor :pf
@@ -85,6 +89,10 @@ module Calculator
       @d = o.d
     end
 
+    def to_s
+      "#{@n}/#{@d}"
+    end
+
     attr_reader :n, :d
     alias :numerator :n
     alias :denominator :d
@@ -99,6 +107,10 @@ module Calculator
     def initialize_with_obj(o)
       @i = o.i
       @r = o.r
+    end
+
+    def to_s
+      "#{@i}_/#{@r}"
     end
 
     attr_reader :i, :r
@@ -164,6 +176,10 @@ module Calculator
       @e = o.e
     end
 
+    def to_s
+      "#{@b}^#{@e}"
+    end
+
     attr_reader :b, :e
     alias :base :b
     alias :exponent :e
@@ -178,6 +194,10 @@ module Calculator
     def initialize_with_obj(o)
       @b = o.b
       @rn = o.rn
+    end
+
+    def to_s
+      "Log#{@b}(#{@rn})"
     end
 
     attr_reader :b, :rn
@@ -284,6 +304,10 @@ module Calculator
       @factors = o.factors
     end
 
+    def to_s
+      "#{@factors.map(&:to_s).join('*')}"
+    end
+
     attr_reader :factors
   end
 
@@ -311,6 +335,10 @@ module Calculator
       @terms = o.terms
     end
 
+    def to_s
+      "(#{@terms.map(&:to_s).join(' + ')})"
+    end
+
     attr_reader :terms
   end
 
@@ -334,6 +362,10 @@ module Calculator
 
     def initialize_with_obj(o)
       @sub_expression = o.sub_expression
+    end
+
+    def to_s
+      "#{@sub_expression.terms.map(&:to_s).join(' + ')}"
     end
 
     attr_reader :sub_expression
