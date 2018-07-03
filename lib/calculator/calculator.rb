@@ -294,7 +294,7 @@ module Calculator
       end
 
       def simplify(a)
-        t_ = a.terms.reduce(&:+)
+        t_ = a.terms.map(&:simplify).reduce(&:+)
 
         res = [t_]
 
