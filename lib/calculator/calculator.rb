@@ -255,7 +255,7 @@ module Calculator
       def simplify(a)
         a_clsd = ClassifiedFactors.new(a.factors)
 
-        res_clsd = a_clsd.map { |_, fct_lst| [fct_lst.reduce(&:*)] }
+        res_clsd = a_clsd.map { |_, fct_lst| [fct_lst.map(&:simplify).reduce(&:*)] }
 
         new(*res_clsd.to_factors)
       end
@@ -294,7 +294,7 @@ module Calculator
       end
 
       def simplify(a)
-        t_ = a.terms.reduce(&:+)
+        t_ = a.terms.map(&:simplify).reduce(&:+)
 
         res = [t_]
 
