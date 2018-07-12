@@ -90,7 +90,7 @@ module Calculator
     end
 
     def to_s
-      "#{@n}/#{@d}"
+      "#{@n}" + (@d == 1 ? '' : "/#{@d}")
     end
 
     attr_reader :n, :d
