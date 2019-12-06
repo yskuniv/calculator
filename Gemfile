@@ -1,3 +1,6 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'rspec'
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+# Specify your gem's dependencies in hs_math.gemspec
+gemspec
