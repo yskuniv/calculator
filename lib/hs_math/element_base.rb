@@ -1,7 +1,7 @@
-require_relative './calculator_metacode.rb'
+require 'hs_math/element_metacode'
 
 
-module Calculator
+module HsMath
   class OperandTypeMismatchError < TypeError
     def initialize(a, b)
       super("#{b.class.to_s} does not match to #{a.class.to_s}")

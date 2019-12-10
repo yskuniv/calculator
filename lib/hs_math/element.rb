@@ -1,8 +1,8 @@
-require_relative './calculator_base.rb'
-require_relative './utils.rb'
+require 'hs_math/element_base'
+require 'hs_math/utils'
 
 
-module Calculator
+module HsMath
   class CFactor < Factor
     class << self
       def generate(c, pf)
@@ -58,7 +58,7 @@ module Calculator
       end
 
       def simplify(a)
-        n_, d_ = CalculatorUtils::reduction(a.n, a.d)
+        n_, d_ = Utils::reduction(a.n, a.d)
 
         new(n_, d_)
       end
@@ -141,7 +141,7 @@ module Calculator
         e_div = e.n / e.d
         e_rem = e.n % e.d
 
-        mcb_ = CalculatorUtils::factorization(b ** e_rem)
+        mcb_ = Utils::factorization(b ** e_rem)
                  .reduce({ c: 1, b: 1 }) { |s, (f, n)| s.merge({ c: f ** (n / e.d),
                                                                  b: f ** (n % e.d) }) { |_, a, b| a * b } }
 
