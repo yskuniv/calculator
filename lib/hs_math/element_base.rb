@@ -1,7 +1,8 @@
-require_relative './calculator_metacode.rb'
+require 'hs_math/element_metacode'
+require 'hs_math/error'
 
 
-module Calculator
+module HsMath
   class OperandTypeMismatchError < TypeError
     def initialize(a, b)
       super("#{b.class.to_s} does not match to #{a.class.to_s}")
@@ -28,7 +29,7 @@ module Calculator
   module Multiplable
     include OperationDefinerHelper
 
-    class MultiplicationError < StandardError
+    class MultiplicationError < Error
     end
 
     define_binary_operation_and_its_destructive_method :multiply
@@ -39,7 +40,7 @@ module Calculator
   module Addable
     include OperationDefinerHelper
 
-    class AdditionError < StandardError
+    class AdditionError < Error
     end
 
     define_binary_operation_and_its_destructive_method :add

@@ -1,4 +1,4 @@
-module Calculator
+module HsMath
   module OperationDefinerHelper
     def self.included(mod)
       class << mod
