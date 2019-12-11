@@ -1,7 +1,6 @@
 module HsMath
   module Utils
     class << self
-
       def reduction(a, b)
         r = Rational(a, b)
 
@@ -45,7 +44,6 @@ module HsMath
 
         x == l.last
       end
-
     end
   end
 end

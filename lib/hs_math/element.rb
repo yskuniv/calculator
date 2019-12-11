@@ -1,6 +1,5 @@
-require 'hs_math/element_base'
-require 'hs_math/utils'
-
+require "hs_math/element_base"
+require "hs_math/utils"
 
 module HsMath
   class CFactor < Factor
@@ -25,7 +24,6 @@ module HsMath
       end
     end
 
-
     def initialize(c, pf)
       @c = c
       @pf = pf
@@ -41,8 +39,8 @@ module HsMath
     end
 
     attr_reader :c, :pf
-    alias :coefficient :c
-    alias :prime_factor :pf
+    alias coefficient c
+    alias prime_factor pf
   end
 
   class Rational < PrimeFactor
@@ -58,7 +56,7 @@ module HsMath
       end
 
       def simplify(a)
-        n_, d_ = Utils::reduction(a.n, a.d)
+        n_, d_ = Utils.reduction(a.n, a.d)
 
         new(n_, d_)
       end
@@ -78,7 +76,6 @@ module HsMath
       end
     end
 
-
     def initialize(n, d)
       @n = n
       @d = d
@@ -90,12 +87,12 @@ module HsMath
     end
 
     def to_s
-      "#{@n}" + (@d == 1 ? '' : "/#{@d}")
+      @n.to_s + (@d == 1 ? "" : "/#{@d}")
     end
 
     attr_reader :n, :d
-    alias :numerator :n
-    alias :denominator :d
+    alias numerator n
+    alias denominator d
   end
 
   class Radical < PrimeFactor
@@ -114,14 +111,14 @@ module HsMath
     end
 
     attr_reader :i, :r
-    alias :index :i
-    alias :radicand :r
+    alias index i
+    alias radicand r
   end
 
   class Exponential < PrimeFactor
     class ExponentialMultiplicationError < MultiplicationError
       def initialize
-        super('base not compatible')
+        super("base not compatible")
       end
     end
 
@@ -141,13 +138,15 @@ module HsMath
         e_div = e.n / e.d
         e_rem = e.n % e.d
 
-        mcb_ = Utils::factorization(b ** e_rem)
-                 .reduce({ c: 1, b: 1 }) { |s, (f, n)| s.merge({ c: f ** (n / e.d),
-                                                                 b: f ** (n % e.d) }) { |_, a, b| a * b } }
+        mcb_ = Utils.factorization(b**e_rem)
+                    .reduce(c: 1, b: 1) { |s, (f, n)|
+          s.merge(c: f**(n / e.d),
+                  b: f**(n % e.d)) { |_, a, b| a * b }
+        }
 
-        c_ = b ** e_div * mcb_[:c]
+        c_ = b**e_div * mcb_[:c]
         b_ = mcb_[:b]
-        e_ = Rational.new(1, (b_ == 1) ? 1 : e.d)
+        e_ = Rational.new(1, b_ == 1 ? 1 : e.d)
 
         CFactor.generate(Rational.new(c_, 1), new(b_, e_))
       end
@@ -160,11 +159,10 @@ module HsMath
 
           simplify(new(b_, e_))
         else
-          raise ExponentialMultiplicationError.new
+          raise ExponentialMultiplicationError
         end
       end
     end
-
 
     def initialize(b, e)
       @b = b
@@ -181,8 +179,8 @@ module HsMath
     end
 
     attr_reader :b, :e
-    alias :base :b
-    alias :exponent :e
+    alias base b
+    alias exponent e
   end
 
   class Logarithm < PrimeFactor
@@ -201,10 +199,9 @@ module HsMath
     end
 
     attr_reader :b, :rn
-    alias :base :b
-    alias :real_number :rn
+    alias base b
+    alias real_number rn
   end
-
 
   class Term < Calculatable
     include Addable
@@ -226,7 +223,6 @@ module HsMath
             classified_[fct_class] = block[fct_class, fct_lst]
           end
 
-
           @classified = classified_
 
           self
@@ -239,7 +235,6 @@ module HsMath
             classified_[fct_class] = block[fct_class, fct_lst_s, fct_lst_o]
           end
 
-
           @classified = classified_
 
           self
@@ -251,11 +246,10 @@ module HsMath
 
         attr_reader :classified
 
-
         private
 
         def factors_to_classified(factors)
-          factors.inject(new_classified) { |s, fct| s[fct.class] << fct; s }
+          factors.each_with_object(new_classified) { |fct, s| s[fct.class] << fct }
         end
 
         def classified_to_factors(classified)
@@ -266,7 +260,6 @@ module HsMath
           Hash.new { |h, k| h[k] = [] }
         end
       end
-
 
       def compare(a, b)
         a.factors == b.factors
@@ -295,7 +288,6 @@ module HsMath
       end
     end
 
-
     def initialize(*factors)
       @factors = factors
     end
@@ -305,7 +297,7 @@ module HsMath
     end
 
     def to_s
-      "#{@factors.map(&:to_s).join('*')}"
+      @factors.map(&:to_s).join("*").to_s
     end
 
     attr_reader :factors
@@ -325,7 +317,6 @@ module HsMath
         new(*res)
       end
     end
-
 
     def initialize(*terms)
       @terms = terms
@@ -355,7 +346,6 @@ module HsMath
       end
     end
 
-
     def initialize(*terms)
       @sub_expression = SubExpression.new(*terms)
     end
@@ -365,12 +355,11 @@ module HsMath
     end
 
     def to_s
-      "#{@sub_expression.terms.map(&:to_s).join(' + ')}"
+      @sub_expression.terms.map(&:to_s).join(" + ").to_s
     end
 
     attr_reader :sub_expression
   end
-
 
   # define alias of classes
   Rat = Rational
