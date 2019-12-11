@@ -249,7 +249,7 @@ module HsMath
         private
 
         def factors_to_classified(factors)
-          factors.each_with_object(new_classified) { |fct, s| s[fct.class] << fct; }
+          factors.each_with_object(new_classified) { |fct, s| s[fct.class] << fct }
         end
 
         def classified_to_factors(classified)
