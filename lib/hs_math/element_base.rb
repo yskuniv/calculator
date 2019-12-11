@@ -1,4 +1,5 @@
 require 'hs_math/element_metacode'
+require 'hs_math/error'
 
 
 module HsMath
@@ -28,7 +29,7 @@ module HsMath
   module Multiplable
     include OperationDefinerHelper
 
-    class MultiplicationError < StandardError
+    class MultiplicationError < Error
     end
 
     define_binary_operation_and_its_destructive_method :multiply
@@ -39,7 +40,7 @@ module HsMath
   module Addable
     include OperationDefinerHelper
 
-    class AdditionError < StandardError
+    class AdditionError < Error
     end
 
     define_binary_operation_and_its_destructive_method :add
