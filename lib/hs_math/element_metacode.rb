@@ -5,12 +5,11 @@ module HsMath
         def define_unary_operation(opr_name)
           define_singleton_method(:included) do |cls|
             cls.class_eval do
-              define_singleton_method(opr_name) do |a|
-                raise NotImplementedError.new
+              define_singleton_method(opr_name) do |_a|
+                raise NotImplementedError
               end
             end
           end
-
 
           define_method(opr_name) do
             self.class.method(opr_name)[self]
@@ -32,15 +31,16 @@ module HsMath
         def define_binary_operation(opr_name)
           define_singleton_method(:included) do |cls|
             cls.class_eval do
-              define_singleton_method(opr_name) do |a, b|
-                raise NotImplementedError.new
+              define_singleton_method(opr_name) do |_a, _b|
+                raise NotImplementedError
               end
             end
           end
 
-
           define_method(opr_name) do |given|
-            raise OperandTypeMismatchError.new(self, given) unless self.class == given.class
+            unless self.class == given.class
+              raise OperandTypeMismatchError.new(self, given)
+            end
 
             self.class.method(opr_name)[self, given]
           end

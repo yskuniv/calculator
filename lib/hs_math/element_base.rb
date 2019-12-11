@@ -1,21 +1,19 @@
-require 'hs_math/element_metacode'
-require 'hs_math/error'
-
+require "hs_math/element_metacode"
+require "hs_math/error"
 
 module HsMath
   class OperandTypeMismatchError < TypeError
     def initialize(a, b)
-      super("#{b.class.to_s} does not match to #{a.class.to_s}")
+      super("#{b.class} does not match to #{a.class}")
     end
   end
-
 
   module Comparable
     include OperationDefinerHelper
 
     define_binary_operation :compare
 
-    alias :== :compare
+    alias == compare
   end
 
   module Simplifable
@@ -23,7 +21,7 @@ module HsMath
 
     define_unary_operation_and_its_destructive_method :simplify
 
-    alias :! :simplify!
+    alias ! simplify!
   end
 
   module Multiplable
@@ -34,7 +32,7 @@ module HsMath
 
     define_binary_operation_and_its_destructive_method :multiply
 
-    alias :* :multiply
+    alias * multiply
   end
 
   module Addable
@@ -45,47 +43,44 @@ module HsMath
 
     define_binary_operation_and_its_destructive_method :add
 
-    alias :+ :add
+    alias + add
   end
 
-
   class Element
-    include Comparable, Simplifable
+    include Simplifable
+    include Comparable
 
     class << self
-      alias :[] :new
+      alias [] new
     end
 
-
-    def initialize_with_obj(o)
-      raise NotImplementedError.new
+    def initialize_with_obj(_o)
+      raise NotImplementedError
     end
   end
 
   class Calculatable < Element
-    def <<(given)
-      raise NotImplementedError.new
+    def <<(_given)
+      raise NotImplementedError
     end
   end
 
   class Factor < Calculatable
     include Multiplable
 
-
-    alias :<< :multiply!
+    alias << multiply!
   end
 
   class PrimeFactor < Factor
     class << self
       def identity
-        raise NotImplementedError.new
+        raise NotImplementedError
       end
 
       def identity?(a)
         compare(a, identity)
       end
     end
-
 
     def identity?
       self.class.identity?(self)

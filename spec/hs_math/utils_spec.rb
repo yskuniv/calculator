@@ -1,63 +1,53 @@
 RSpec.describe HsMath::Utils do
-
-  describe '::reduction' do
-
-    it 'reduce a b properly' do
-      expect(Utils::reduction(2, 4)).to eq [1, 2]
+  describe "::reduction" do
+    it "reduce a b properly" do
+      expect(Utils.reduction(2, 4)).to eq [1, 2]
     end
-
   end
 
-  describe '::factorization' do
-
-    context 'when a prime number is given' do
-      it 'returns proper value' do
-        expect(Utils::factorization(11)).to eq ({ 11 => 1 })
+  describe "::factorization" do
+    context "when a prime number is given" do
+      it "returns proper value" do
+        expect(Utils.factorization(11)).to eq ({ 11 => 1 })
       end
     end
 
-    context 'when a non-prime number is given' do
-      it 'returns proper value' do
-        expect(Utils::factorization(90)).to eq ({ 2 => 1, 3 => 2, 5 => 1 })
+    context "when a non-prime number is given" do
+      it "returns proper value" do
+        expect(Utils.factorization(90)).to eq ({ 2 => 1, 3 => 2, 5 => 1 })
       end
     end
 
-    context 'when 0 is given' do
-      it 'returns {}' do
-        expect(Utils::factorization(0)).to eq ({})
+    context "when 0 is given" do
+      it "returns {}" do
+        expect(Utils.factorization(0)).to eq ({})
       end
     end
 
-    context 'when 1 is given' do
-      it 'returns {}' do
-        expect(Utils::factorization(1)).to eq ({})
+    context "when 1 is given" do
+      it "returns {}" do
+        expect(Utils.factorization(1)).to eq ({})
       end
     end
-
   end
 
-  describe '::prime_numbers' do
-
-    it 'returns the prime number list' do
-      expect(Utils::prime_numbers.take(10)).to eq [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+  describe "::prime_numbers" do
+    it "returns the prime number list" do
+      expect(Utils.prime_numbers.take(10)).to eq [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
     end
-
   end
 
-  describe '::is_prime_number?' do
-
-    context 'when a prime number is given' do
-      it 'returns true' do
-        expect(Utils::is_prime_number?(11)).to be_truthy
+  describe "::is_prime_number?" do
+    context "when a prime number is given" do
+      it "returns true" do
+        expect(Utils.is_prime_number?(11)).to be_truthy
       end
     end
 
-    context 'when a non-prime number is given' do
-      it 'returns false' do
-        expect(Utils::is_prime_number?(12)).to be_falsey
+    context "when a non-prime number is given" do
+      it "returns false" do
+        expect(Utils.is_prime_number?(12)).to be_falsey
       end
     end
-
   end
-
 end
