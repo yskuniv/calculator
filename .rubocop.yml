@@ -1,0 +1,54 @@
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyCaseCondition:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: true
+  EnforcedStyle: semantic
+  Exclude:
+    - '**/*.gemspec'
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+  Exclude:
+    - '**/*.gemspec'
+
+Layout/LeadingEmptyLines:
+  Exclude:
+    - '**/*.gemspec'
+
+Metrics/LineLength:
+  Exclude:
+    - '**/*.gemspec'
+
+Style/ExpandPathArguments:
+  Exclude:
+    - '**/*.gemspec'
+
+Style/PercentLiteralDelimiters:
+  Exclude:
+    - '**/*.gemspec'
+
+Style/RedundantPercentQ:
+  Exclude:
+    - '**/*.gemspec'
+
+Style/HashSyntax:
+  Exclude:
+    - '**/Rakefile'
+
+Metrics/BlockLength:
+  Exclude:
+    - '**/*_spec.rb'
