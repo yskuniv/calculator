@@ -36,18 +36,4 @@ RSpec.describe HsMath::Utils do
       expect(Utils.prime_numbers.take(10).force).to eq [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
     end
   end
-
-  describe "::is_prime_number?" do
-    context "when a prime number is given" do
-      it "returns true" do
-        expect(Utils.is_prime_number?(11)).to be_truthy
-      end
-    end
-
-    context "when a non-prime number is given" do
-      it "returns false" do
-        expect(Utils.is_prime_number?(12)).to be_falsey
-      end
-    end
-  end
 end
