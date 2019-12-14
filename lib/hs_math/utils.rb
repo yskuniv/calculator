@@ -8,18 +8,18 @@ module HsMath
       end
 
       def factorization(a)
-        t_c = a
         res = Hash.new(0)
-        pnums = prime_numbers
+        ps = prime_numbers
 
+        quot = a
         loop do
-          p_c = pnums.next
+          p_ = ps.next
 
-          break if t_c < p_c
+          break if quot < p_
 
-          while t_c % p_c == 0
-            res[p_c] += 1
-            t_c /= p_c
+          while quot % p_ == 0
+            res[p_] += 1
+            quot /= p_
           end
         end
 
