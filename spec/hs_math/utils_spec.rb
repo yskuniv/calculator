@@ -33,7 +33,7 @@ RSpec.describe HsMath::Utils do
 
   describe "::prime_numbers" do
     it "returns the prime number list" do
-      expect(Utils.prime_numbers.take(10)).to eq [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+      expect(Utils.prime_numbers.take(10).force).to eq [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
     end
   end
 
