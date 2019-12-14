@@ -7,11 +7,11 @@ module HsMath
         [r.numerator, r.denominator]
       end
 
-      def factorization(a)
+      def factorize(n)
         res = Hash.new(0)
         ps = prime_numbers
 
-        quot = a
+        quot = n
         loop do
           p_ = ps.next
 
@@ -25,6 +25,8 @@ module HsMath
 
         res
       end
+
+      alias factorization factorize
 
       def prime_numbers
         (0..).lazy.map { |i| prime_number(i) }
