@@ -9,9 +9,9 @@ module HsMath
 
       def factorize(n)
         res = Hash.new(0)
-        ps = prime_numbers
 
         quot = n
+        ps = prime_numbers
         loop do
           p_ = ps.next
 
